@@ -381,17 +381,24 @@ function getCountryName(flag) {
   }
 }
 
-function makeAutoConfig(entries, remarks, prefix) {
+function makeAutoConfig(entries, remarks) {
   const outbounds = [];
 
   for (let i = 0; i < entries.length; i++) {
     const proxyOutbounds = extractProxyOutbounds(entries[i].config);
 
     for (const outbound of proxyOutbounds) {
-      outbound.tag = `${prefix}${outbounds.length}`;
+      const index = outbounds.length;
+
+      outbound.tag = index === 0
+        ? "proxy"
+        : `proxy-${index + 1}`;
+
       outbounds.push(outbound);
     }
   }
+
+  const selector = outbounds.map(outbound => outbound.tag);
 
   return {
     dns: {
@@ -613,20 +620,12 @@ function makeAutoConfig(entries, remarks, prefix) {
       balancers: [
         {
           tag: "MAIN_BALANCER",
-          selector: [
-            `${prefix}`
-          ],
+          selector,
           strategy: {
             type: "leastLoad",
             settings: {
               maxRTT: "2s",
-              expected: 3,
-              baselines: [
-                "80ms",
-                "150ms",
-                "300ms"
-              ],
-              tolerance: 0.1
+              expected: 3
             }
           },
           fallbackTag: "block"
@@ -701,9 +700,7 @@ function makeAutoConfig(entries, remarks, prefix) {
         httpMethod: "HEAD",
         destination: "https://www.gstatic.com/generate_204"
       },
-      subjectSelector: [
-        `${prefix}`
-      ]
+      subjectSelector: selector
     },
 
     remarks
@@ -778,8 +775,7 @@ export function transformSubscription(input) {
     result.push(
       makeAutoConfig(
         normalEntries,
-        "🇪🇺 АВТО #1 ⚡",
-        "normal-proxy-"
+        "🇪🇺 АВТО #1 ⚡"
       )
     );
   }
@@ -788,8 +784,7 @@ export function transformSubscription(input) {
     result.push(
       makeAutoConfig(
         bypassEntries,
-        "🇪🇺 АВТО #2 (Обход глушилок)",
-        "bypass-proxy-"
+        "🇪🇺 АВТО #2 (Обход глушилок)"
       )
     );
   }
