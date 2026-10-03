@@ -28,7 +28,6 @@ const COUNTRY_OVERRIDES = {
   "🇧🇲": "Бермуды",
   "🇧🇹": "Бутан",
   "🇧🇴": "Боливия",
-  "🇧🇶": "Карибские Нидерланды",
   "🇧🇦": "Босния и Герцеговина",
   "🇧🇼": "Ботсвана",
   "🇧🇷": "Бразилия",
@@ -38,27 +37,23 @@ const COUNTRY_OVERRIDES = {
   "🇧🇫": "Буркина-Фасо",
   "🇧🇮": "Бурунди",
 
-  "🇨🇻": "Кабо-Верде",
   "🇰🇭": "Камбоджа",
   "🇨🇲": "Камерун",
   "🇨🇦": "Канада",
+  "🇨🇻": "Кабо-Верде",
   "🇰🇾": "Каймановы острова",
   "🇨🇫": "Центральноафриканская Республика",
   "🇹🇩": "Чад",
   "🇨🇱": "Чили",
   "🇨🇳": "Китай",
-  "🇨🇽": "Остров Рождества",
-  "🇨🇨": "Кокосовые острова",
   "🇨🇴": "Колумбия",
   "🇰🇲": "Коморы",
   "🇨🇬": "Республика Конго",
   "🇨🇩": "Демократическая Республика Конго",
-  "🇨🇰": "Острова Кука",
   "🇨🇷": "Коста-Рика",
   "🇨🇮": "Кот-д’Ивуар",
   "🇭🇷": "Хорватия",
   "🇨🇺": "Куба",
-  "🇨🇼": "Кюрасао",
   "🇨🇾": "Кипр",
   "🇨🇿": "Чехия",
 
@@ -76,35 +71,22 @@ const COUNTRY_OVERRIDES = {
   "🇸🇿": "Эсватини",
   "🇪🇹": "Эфиопия",
 
-  "🇫🇰": "Фолклендские острова",
-  "🇫🇴": "Фарерские острова",
   "🇫🇯": "Фиджи",
   "🇫🇮": "Финляндия",
   "🇫🇷": "Франция",
-  "🇬🇫": "Французская Гвиана",
-  "🇵🇫": "Французская Полинезия",
-  "🇹🇫": "Французские Южные территории",
-
   "🇬🇦": "Габон",
   "🇬🇲": "Гамбия",
   "🇬🇪": "Грузия",
   "🇩🇪": "Германия",
   "🇬🇭": "Гана",
-  "🇬🇮": "Гибралтар",
   "🇬🇷": "Греция",
-  "🇬🇱": "Гренландия",
   "🇬🇩": "Гренада",
-  "🇬🇵": "Гваделупа",
-  "🇬🇺": "Гуам",
   "🇬🇹": "Гватемала",
-  "🇬🇬": "Гернси",
   "🇬🇳": "Гвинея",
   "🇬🇼": "Гвинея-Бисау",
   "🇬🇾": "Гайана",
 
   "🇭🇹": "Гаити",
-  "🇭🇲": "Остров Херд и острова Макдональд",
-  "🇻🇦": "Ватикан",
   "🇭🇳": "Гондурас",
   "🇭🇰": "Гонконг",
   "🇭🇺": "Венгрия",
@@ -115,13 +97,11 @@ const COUNTRY_OVERRIDES = {
   "🇮🇷": "Иран",
   "🇮🇶": "Ирак",
   "🇮🇪": "Ирландия",
-  "🇮🇲": "Остров Мэн",
   "🇮🇱": "Израиль",
   "🇮🇹": "Италия",
 
   "🇯🇲": "Ямайка",
   "🇯🇵": "Япония",
-  "🇯🇪": "Джерси",
   "🇯🇴": "Иордания",
 
   "🇰🇿": "Казахстан",
@@ -150,17 +130,14 @@ const COUNTRY_OVERRIDES = {
   "🇲🇱": "Мали",
   "🇲🇹": "Мальта",
   "🇲🇭": "Маршалловы Острова",
-  "🇲🇶": "Мартиника",
   "🇲🇷": "Мавритания",
   "🇲🇺": "Маврикий",
-  "🇾🇹": "Майотта",
   "🇲🇽": "Мексика",
   "🇫🇲": "Микронезия",
   "🇲🇩": "Молдова",
   "🇲🇨": "Монако",
   "🇲🇳": "Монголия",
   "🇲🇪": "Черногория",
-  "🇲🇸": "Монтсеррат",
   "🇲🇦": "Марокко",
   "🇲🇿": "Мозамбик",
   "🇲🇲": "Мьянма",
@@ -169,19 +146,14 @@ const COUNTRY_OVERRIDES = {
   "🇳🇷": "Науру",
   "🇳🇵": "Непал",
   "🇳🇱": "Нидерланды",
-  "🇳🇨": "Новая Каледония",
   "🇳🇿": "Новая Зеландия",
   "🇳🇮": "Никарагуа",
   "🇳🇪": "Нигер",
   "🇳🇬": "Нигерия",
-  "🇳🇺": "Ниуэ",
-  "🇳🇫": "Остров Норфолк",
   "🇲🇰": "Северная Македония",
-  "🇲🇵": "Северные Марианские острова",
   "🇳🇴": "Норвегия",
 
   "🇴🇲": "Оман",
-
   "🇵🇰": "Пакистан",
   "🇵🇼": "Палау",
   "🇵🇸": "Палестина",
@@ -190,47 +162,33 @@ const COUNTRY_OVERRIDES = {
   "🇵🇾": "Парагвай",
   "🇵🇪": "Перу",
   "🇵🇭": "Филиппины",
-  "🇵🇳": "Питкэрн",
   "🇵🇱": "Польша",
   "🇵🇹": "Португалия",
   "🇵🇷": "Пуэрто-Рико",
 
   "🇶🇦": "Катар",
-
-  "🇷🇪": "Реюньон",
   "🇷🇴": "Румыния",
   "🇷🇺": "Россия",
   "🇷🇼": "Руанда",
 
-  "🇧🇱": "Сен-Бартелеми",
-  "🇸🇭": "Остров Святой Елены",
-  "🇰🇳": "Сент-Китс и Невис",
-  "🇱🇨": "Сент-Люсия",
-  "🇲🇫": "Сен-Мартен",
-  "🇵🇲": "Сен-Пьер и Микелон",
-  "🇻🇨": "Сент-Винсент и Гренадины",
   "🇼🇸": "Самоа",
   "🇸🇲": "Сан-Марино",
-  "🇸🇹": "Сан-Томе и Принсипи",
   "🇸🇦": "Саудовская Аравия",
   "🇸🇳": "Сенегал",
   "🇷🇸": "Сербия",
   "🇸🇨": "Сейшельские Острова",
   "🇸🇱": "Сьерра-Леоне",
   "🇸🇬": "Сингапур",
-  "🇸🇽": "Синт-Мартен",
   "🇸🇰": "Словакия",
   "🇸🇮": "Словения",
   "🇸🇧": "Соломоновы Острова",
   "🇸🇴": "Сомали",
   "🇿🇦": "Южная Африка",
-  "🇬🇸": "Южная Георгия и Южные Сандвичевы острова",
   "🇸🇸": "Южный Судан",
   "🇪🇸": "Испания",
   "🇱🇰": "Шри-Ланка",
   "🇸🇩": "Судан",
   "🇸🇷": "Суринам",
-  "🇸🇯": "Шпицберген и Ян-Майен",
   "🇸🇪": "Швеция",
   "🇨🇭": "Швейцария",
   "🇸🇾": "Сирия",
@@ -241,15 +199,12 @@ const COUNTRY_OVERRIDES = {
   "🇹🇭": "Таиланд",
   "🇹🇱": "Восточный Тимор",
   "🇹🇬": "Того",
-  "🇹🇰": "Токелау",
   "🇹🇴": "Тонга",
   "🇹🇹": "Тринидад и Тобаго",
   "🇹🇳": "Тунис",
   "🇹🇷": "Турция",
   "🇹🇲": "Туркменистан",
-  "🇹🇨": "Теркс и Кайкос",
   "🇹🇻": "Тувалу",
-
   "🇺🇬": "Уганда",
   "🇺🇦": "Украина",
   "🇦🇪": "ОАЭ",
@@ -257,67 +212,23 @@ const COUNTRY_OVERRIDES = {
   "🇺🇸": "США",
   "🇺🇾": "Уругвай",
   "🇺🇿": "Узбекистан",
-
   "🇻🇺": "Вануату",
+  "🇻🇦": "Ватикан",
   "🇻🇪": "Венесуэла",
   "🇻🇳": "Вьетнам",
-  "🇻🇮": "Американские Виргинские острова",
-
-  "🇼🇫": "Уоллис и Футуна",
-  "🇪🇭": "Западная Сахара",
   "🇾🇪": "Йемен",
   "🇿🇲": "Замбия",
   "🇿🇼": "Зимбабве",
-
-  "🇽🇰": "Косово",
-  "🇦🇨": "Остров Вознесения",
-  "🇦🇽": "Аландские острова"
+  "🇽🇰": "Косово"
 };
 
 const FLAG_RE = /[\u{1F1E6}-\u{1F1FF}]{2}/u;
-
-function normalizeText(value) {
-  return String(value ?? "").replace(/\s+/g, " ").trim();
-}
-
-function getFlag(text) {
-  return normalizeText(text).match(FLAG_RE)?.[0] ?? "";
-}
-
-function getCountryName(flag) {
-  if (!flag) return null;
-
-  if (COUNTRY_OVERRIDES[flag]) {
-    return COUNTRY_OVERRIDES[flag];
-  }
-
-  const chars = [...flag];
-
-  if (chars.length !== 2) {
-    return null;
-  }
-
-  const code = chars
-    .map(char =>
-      String.fromCodePoint(char.codePointAt(0) - 0x1F1E6 + 65)
-    )
-    .join("");
-
-  try {
-    return new Intl.DisplayNames(["ru"], {
-      type: "region"
-    }).of(code) || null;
-  } catch {
-    return null;
-  }
-}
 
 function getConfigArray(data) {
   if (Array.isArray(data)) return data;
   if (Array.isArray(data?.configs)) return data.configs;
   if (Array.isArray(data?.servers)) return data.servers;
-
-  throw new Error("Не найден массив configs/servers.");
+  return [];
 }
 
 function clone(value) {
@@ -325,69 +236,144 @@ function clone(value) {
 }
 
 function isProxyOutbound(outbound) {
-  if (!outbound || typeof outbound !== "object") {
-    return false;
-  }
+  if (!outbound || typeof outbound !== "object") return false;
 
-  const protocol = String(outbound.protocol ?? "").toLowerCase();
+  const protocol = String(outbound.protocol || "").toLowerCase();
 
-  return ![
-    "freedom",
-    "blackhole",
-    "dns",
-    "loopback",
-    "dokodemo-door"
+  return [
+    "vless",
+    "vmess",
+    "trojan",
+    "shadowsocks",
+    "socks",
+    "http",
+    "hysteria",
+    "hysteria2",
+    "wireguard"
   ].includes(protocol);
 }
 
 function extractProxyOutbounds(config) {
-  return (Array.isArray(config?.outbounds) ? config.outbounds : [])
+  if (!config || typeof config !== "object") return [];
+
+  const outbounds = Array.isArray(config.outbounds)
+    ? config.outbounds
+    : [];
+
+  return outbounds
     .filter(isProxyOutbound)
     .map(clone);
 }
 
-function isBypassConfig(config) {
-  const remark = normalizeText(
+function getSourceRemark(config, index) {
+  return String(
     config?.remarks ??
     config?.remark ??
     config?.name ??
-    ""
-  ).toLowerCase();
-
-  return (
-    /\blte\b/i.test(remark) ||
-    /обход/i.test(remark) ||
-    /глушил/i.test(remark) ||
-    /bypass/i.test(remark) ||
-    /censor/i.test(remark) ||
-    /anti.?block/i.test(remark)
-  );
+    config?.tag ??
+    `Server ${index + 1}`
+  ).trim();
 }
 
-function getSourceRemark(config, index) {
-  return normalizeText(
-    config?.remarks ??
-    config?.remark ??
-    config?.name ??
-    `Server ${index + 1}`
-  );
+function isBypassConfig(remark) {
+  const text = remark.toLowerCase();
+
+  return [
+    "lte",
+    "обход",
+    "глушил",
+    "bypass",
+    "censor",
+    "anti-block",
+    "antiblock"
+  ].some(word => text.includes(word));
+}
+
+function getFlagFromConfig(config, remark) {
+  const candidates = [
+    config?.flag,
+    config?.countryFlag,
+    remark
+  ];
+
+  for (const value of candidates) {
+    if (typeof value !== "string") continue;
+
+    const match = value.match(FLAG_RE);
+
+    if (match) {
+      const flag = match[0];
+
+      if (flag === "🇪🇺" || flag === "🇺🇳") {
+        return null;
+      }
+
+      return flag;
+    }
+  }
+
+  return null;
+}
+
+function getCountryName(flag) {
+  if (!flag) return null;
+
+  if (flag === "🇪🇺" || flag === "🇺🇳") {
+    return null;
+  }
+
+  if (COUNTRY_OVERRIDES[flag]) {
+    return COUNTRY_OVERRIDES[flag];
+  }
+
+  try {
+    const code = [...flag]
+      .map(char =>
+        String.fromCharCode(
+          char.codePointAt(0) - 0x1F1E6 + 65
+        )
+      )
+      .join("");
+
+    if (code === "EU" || code === "UN") {
+      return null;
+    }
+
+    const name = new Intl.DisplayNames(["ru"], {
+      type: "region"
+    }).of(code);
+
+    if (
+      !name ||
+      name === "Европейский союз" ||
+      name === "Организация Объединенных Наций" ||
+      name === "ООН"
+    ) {
+      return null;
+    }
+
+    return name;
+  } catch {
+    return null;
+  }
 }
 
 function makeAutoConfig(entries, remarks) {
-  const outbounds = entries.map((entry, index) => {
-    const outbound = clone(entry.outbound);
-    outbound.tag = `proxy-${index}`;
-    return outbound;
-  });
+  const outbounds = [];
+
+  for (let i = 0; i < entries.length; i++) {
+    const proxyOutbounds = extractProxyOutbounds(entries[i].config);
+
+    for (const outbound of proxyOutbounds) {
+      outbound.tag = `proxy-${outbounds.length}`;
+      outbounds.push(outbound);
+    }
+  }
 
   return {
     remarks,
 
     dns: {
-      hosts: {
-        "domain:googleapis.cn": "googleapis.com",
-        "domain:gstatic.com": "gstatic.com"
-      },
       servers: [
         "1.1.1.1",
         "8.8.8.8",
@@ -430,6 +416,7 @@ function makeAutoConfig(entries, remarks) {
 
     routing: {
       domainStrategy: "AsIs",
+
       balancers: [
         {
           tag: "auto-balancer",
@@ -440,6 +427,7 @@ function makeAutoConfig(entries, remarks) {
           }
         }
       ],
+
       rules: [
         {
           type: "field",
@@ -452,8 +440,8 @@ function makeAutoConfig(entries, remarks) {
     burstObservatory: {
       subjectSelector: ["proxy-"],
       pingConfig: {
-        destination: "https://connectivitycheck.gstatic.com/generate_204",
-        connectivity: "",
+        destination:
+          "https://connectivitycheck.gstatic.com/generate_204",
         interval: "1m",
         sampling: 10,
         timeout: "5s",
@@ -464,16 +452,11 @@ function makeAutoConfig(entries, remarks) {
 }
 
 function makeServer(config, country, flag, number) {
-  const result = clone(config);
-  result.remarks = `${flag} ${country} #${number}`;
-  return result;
-}
+  const server = clone(config);
 
-function compareRussian(a, b) {
-  return a.localeCompare(b, "ru", {
-    sensitivity: "base",
-    numeric: true
-  });
+  server.remarks = `${flag} ${country} #${number}`;
+
+  return server;
 }
 
 export function transformSubscription(input) {
@@ -481,67 +464,68 @@ export function transformSubscription(input) {
 
   const normalEntries = [];
   const bypassEntries = [];
-  const countries = new Map();
+  const countryGroups = new Map();
 
   for (let index = 0; index < sourceConfigs.length; index++) {
     const config = sourceConfigs[index];
-    const remark = getSourceRemark(config, index);
-    const flag = getFlag(remark);
-    const country = getCountryName(flag);
 
-    if (!country || !flag) {
+    const remark = getSourceRemark(config, index);
+    const flag = getFlagFromConfig(config, remark);
+
+    if (!flag) {
       continue;
     }
 
-    const bypass = isBypassConfig(config);
-    const outbounds = extractProxyOutbounds(config);
+    const country = getCountryName(flag);
 
-    for (const outbound of outbounds) {
-      const entry = {
-        outbound,
-        config,
-        flag,
-        country,
-        remark
-      };
-
-      if (bypass) {
-        bypassEntries.push(entry);
-      } else {
-        normalEntries.push(entry);
-      }
+    if (!country) {
+      continue;
     }
 
-    if (!bypass) {
-      if (!countries.has(country)) {
-        countries.set(country, {
-          flag,
-          servers: []
-        });
-      }
-
-      countries.get(country).servers.push({
-        config,
-        flag,
-        country,
-        remark
-      });
+    if (
+      flag === "🇪🇺" ||
+      flag === "🇺🇳" ||
+      country === "Европейский союз" ||
+      country === "ООН" ||
+      country === "Организация Объединенных Наций"
+    ) {
+      continue;
     }
+
+    const entry = {
+      config: clone(config),
+      country,
+      flag,
+      remark
+    };
+
+    if (isBypassConfig(remark)) {
+      bypassEntries.push(entry);
+      continue;
+    }
+
+    normalEntries.push(entry);
+
+    if (!countryGroups.has(country)) {
+      countryGroups.set(country, []);
+    }
+
+    countryGroups.get(country).push(entry);
   }
 
-  const finalConfigs = [];
+  const result = [];
 
-  if (normalEntries.length) {
-    finalConfigs.push(
+  if (normalEntries.length > 0) {
+    result.push(
       makeAutoConfig(
         normalEntries,
-        "🇪🇺 АВТО⚡ #1"
+        "🇪🇺 АВТО #1 ⚡"
       )
     );
   }
 
-  if (bypassEntries.length) {
-    finalConfigs.push(
+  if (bypassEntries.length > 0) {
+    result.push(
       makeAutoConfig(
         bypassEntries,
         "🇪🇺 АВТО #2 (Обход глушилок)"
@@ -549,56 +533,51 @@ export function transformSubscription(input) {
     );
   }
 
-  const sortedCountries = [...countries.entries()]
-    .sort(([a], [b]) => compareRussian(a, b));
+  const sortedCountries = [...countryGroups.entries()]
+    .sort(([a], [b]) => a.localeCompare(b, "ru"));
 
-  for (const [country, group] of sortedCountries) {
-    group.servers.sort((a, b) =>
-      compareRussian(a.remark, b.remark)
-    );
+  for (const [country, entries] of sortedCountries) {
+    for (let i = 0; i < entries.length; i++) {
+      const entry = entries[i];
 
-    let number = 1;
-
-    for (const server of group.servers) {
-      finalConfigs.push(
+      result.push(
         makeServer(
-          server.config,
+          entry.config,
           country,
-          server.flag,
-          number++
+          entry.flag,
+          i + 1
         )
       );
     }
   }
 
   return {
-    configs: finalConfigs,
+    ...input,
+    configs: result,
+    servers: result,
+
     stats: {
-      source: sourceConfigs.length,
+      total: result.length,
+      countries: countryGroups.size,
       normalOutbounds: normalEntries.length,
-      bypassOutbounds: bypassEntries.length,
-      countries: sortedCountries.length,
-      total: finalConfigs.length
+      bypassOutbounds: bypassEntries.length
     }
   };
 }
 
 if (process.argv[1]?.endsWith("transform.js")) {
-  const inputPath = process.argv[2] || "data/subscription.json";
-  const outputPath = process.argv[3] || "public/subscription.json";
+  const inputPath = "data/subscription.json";
+  const outputPath = "public/subscription.json";
 
-  const raw = await fs.readFile(inputPath, "utf8");
-  const input = JSON.parse(raw);
-  const result = transformSubscription(input);
-
-  await fs.mkdir(
-    outputPath.substring(0, outputPath.lastIndexOf("/")),
-    { recursive: true }
+  const input = JSON.parse(
+    await fs.readFile(inputPath, "utf8")
   );
+
+  const result = transformSubscription(input);
 
   await fs.writeFile(
     outputPath,
-    JSON.stringify(result, null, 2) + "\n",
+    JSON.stringify(result, null, 2),
     "utf8"
   );
 
