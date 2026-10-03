@@ -253,6 +253,29 @@ function isProxyOutbound(outbound) {
   ].includes(protocol);
 }
 
+function isValidProxyOutbound(outbound) {
+  if (!isProxyOutbound(outbound)) return false;
+
+  const streamSettings = outbound.streamSettings;
+
+  if (!streamSettings || typeof streamSettings !== "object") {
+    return true;
+  }
+
+  const grpcSettings = streamSettings.grpcSettings;
+
+  if (
+    grpcSettings &&
+    typeof grpcSettings === "object" &&
+    "serviceName" in grpcSettings &&
+    String(grpcSettings.serviceName ?? "").trim() === ""
+  ) {
+    return false;
+  }
+
+  return true;
+}
+
 function extractProxyOutbounds(config) {
   if (!config || typeof config !== "object") return [];
 
@@ -261,7 +284,7 @@ function extractProxyOutbounds(config) {
     : [];
 
   return outbounds
-    .filter(isProxyOutbound)
+    .filter(isValidProxyOutbound)
     .map(clone);
 }
 
@@ -442,11 +465,9 @@ function makeAutoConfig(entries, remarks) {
       pingConfig: {
         destination:
           "https://connectivitycheck.gstatic.com/generate_204",
-        connectivity:
-          "https://connectivitycheck.gstatic.com/generate_204",
-        interval: "30s",
-        sampling: 5,
-        timeout: "10s",
+        interval: "1m",
+        sampling: 10,
+        timeout: "5s",
         httpMethod: "HEAD"
       }
     }
@@ -589,4 +610,4 @@ if (process.argv[1]?.endsWith("transform.js")) {
     `${result.stats.normalOutbounds} normal | ` +
     `${result.stats.bypassOutbounds} bypass`
   );
-  }
+}
