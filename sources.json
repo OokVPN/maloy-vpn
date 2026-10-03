@@ -1,0 +1,10 @@
+{
+  "telegram": {
+    "channel": "https://t.me/happvpn"
+  },
+  "subscription": {
+    "name": "OokVPN",
+    "sourceFile": "data/subscription.json",
+    "publicFile": "public/subscription.json"
+  }
+}
