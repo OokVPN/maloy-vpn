@@ -37,102 +37,302 @@ console.log(
   `Selected URL: ${post.sourceUrl}`
 );
 
-console.log("Downloading selected URL...");
-
-const response = await fetch(post.sourceUrl, {
-  redirect: "follow",
-  headers: {
-    "user-agent":
-      "Mozilla/5.0 (compatible; Telegram-VPN-Sync/2.0)",
-    accept: "*/*"
-  }
-});
-
-if (!response.ok) {
-  throw new Error(
-    `Source returned HTTP ${response.status}`
-  );
-}
-
-const bytes = Buffer.from(
-  await response.arrayBuffer()
-);
-
-console.log(
-  `Content-Type: ${
-    response.headers.get("content-type") ?? "unknown"
-  }`
-);
-
-console.log(
-  `Downloaded: ${bytes.length} bytes`
-);
-
-if (!bytes.length) {
-  throw new Error(
-    "Downloaded file is empty."
-  );
-}
-
-/*
- * Пытаемся получить JSON.
- *
- * Если это уже JSON — сразу используем.
- * Если нет — декодируем Base64.
- * Если после декодирования опять не JSON —
- * декодируем ещё раз.
+/**
+ * Убирает мусор вокруг URL.
  */
+function cleanUrl(value) {
+  return String(value)
+    .trim()
+    .replace(/&amp;/gi, "&")
+    .replace(/[),.;!?]+$/g, "");
+}
 
-let current = bytes
-  .toString("utf8")
-  .replace(/^\uFEFF/, "")
-  .trim();
+/**
+ * Пытается достать настоящий URL из параметров
+ * типа:
+ *
+ * https://chyra.ru/exec?url=http%3A%2F%2F...
+ */
+function extractNestedUrls(sourceUrl) {
+  const urls = [];
 
-let input = null;
-
-for (let attempt = 0; attempt < 10; attempt++) {
   try {
-    input = JSON.parse(current);
+    const url = new URL(sourceUrl);
 
-    console.log(
-      `JSON decoded successfully (attempt ${attempt + 1}).`
-    );
+    // Все параметры URL
+    for (const [, value] of url.searchParams) {
+      const decoded = cleanUrl(value);
 
-    break;
+      if (
+        /^https?:\/\//i.test(decoded) &&
+        !urls.includes(decoded)
+      ) {
+        urls.push(decoded);
+      }
+    }
+
+    // На случай нестандартной конструкции
+    const decodedFull =
+      decodeURIComponent(sourceUrl);
+
+    const matches =
+      decodedFull.match(
+        /https?:\/\/[^\s"'<>]+/gi
+      ) || [];
+
+    for (const match of matches) {
+      const cleaned = cleanUrl(match);
+
+      if (!urls.includes(cleaned)) {
+        urls.push(cleaned);
+      }
+    }
   } catch {
-    console.log(
-      `Not JSON, decoding Base64 (attempt ${attempt + 1})...`
+    // Ничего
+  }
+
+  return urls;
+}
+
+/**
+ * Скачивает URL и возвращает содержимое.
+ */
+async function download(url) {
+  console.log("");
+  console.log(
+    `Downloading: ${url}`
+  );
+
+  const response = await fetch(url, {
+    redirect: "follow",
+    headers: {
+      "user-agent":
+        "Mozilla/5.0 (compatible; OokVPN-Sync/2.0)",
+      accept: "*/*"
+    }
+  });
+
+  if (!response.ok) {
+    throw new Error(
+      `HTTP ${response.status}`
     );
   }
 
-  const clean = current.replace(/\s+/g, "");
+  const contentType =
+    response.headers.get("content-type") ??
+    "unknown";
 
-  try {
-    current = Buffer
-      .from(clean, "base64")
+  const finalUrl =
+    response.url || url;
+
+  const bytes = Buffer.from(
+    await response.arrayBuffer()
+  );
+
+  console.log(
+    `Final URL: ${finalUrl}`
+  );
+
+  console.log(
+    `Content-Type: ${contentType}`
+  );
+
+  console.log(
+    `Downloaded: ${bytes.length} bytes`
+  );
+
+  return {
+    url,
+    finalUrl,
+    contentType,
+    bytes
+  };
+}
+
+/**
+ * Проверяет, является ли строка нормальным Base64.
+ */
+function looksLikeBase64(value) {
+  const clean =
+    value
+      .replace(/\s+/g, "")
+      .trim();
+
+  if (!clean) {
+    return false;
+  }
+
+  if (clean.length < 8) {
+    return false;
+  }
+
+  if (!/^[A-Za-z0-9+/]*={0,2}$/.test(clean)) {
+    return false;
+  }
+
+  return true;
+}
+
+/**
+ * Декодирует Base64.
+ */
+function decodeBase64(value) {
+  const clean =
+    value
+      .replace(/\s+/g, "")
+      .trim();
+
+  return Buffer
+    .from(clean, "base64")
+    .toString("utf8")
+    .replace(/^\uFEFF/, "")
+    .trim();
+}
+
+/**
+ * Пытается получить JSON из байтов.
+ *
+ * Поддерживает:
+ *
+ * JSON
+ * Base64 -> JSON
+ * Base64 -> Base64 -> JSON
+ * URL encoded JSON
+ */
+function parseJson(bytes) {
+  let current =
+    bytes
       .toString("utf8")
       .replace(/^\uFEFF/, "")
       .trim();
-  } catch {
-    break;
+
+  for (let attempt = 0; attempt < 8; attempt++) {
+    // Обычный JSON
+    try {
+      return {
+        data: JSON.parse(current),
+        method:
+          attempt === 0
+            ? "JSON"
+            : `Base64 x${attempt} -> JSON`
+      };
+    } catch {
+      // дальше
+    }
+
+    // URL-encoded
+    try {
+      const decodedUrl =
+        decodeURIComponent(current);
+
+      if (decodedUrl !== current) {
+        current = decodedUrl.trim();
+
+        try {
+          return {
+            data: JSON.parse(current),
+            method: "URL encoded -> JSON"
+          };
+        } catch {
+          // дальше
+        }
+      }
+    } catch {
+      // дальше
+    }
+
+    // Base64
+    if (!looksLikeBase64(current)) {
+      break;
+    }
+
+    const decoded =
+      decodeBase64(current);
+
+    if (!decoded || decoded === current) {
+      break;
+    }
+
+    current = decoded;
   }
 
-  if (!current) {
-    break;
-  }
+  return null;
 }
 
-if (input === null) {
-  console.log("");
-  console.log("Decoded content:");
-  console.log(current.slice(0, 1000));
-  console.log("");
+/**
+ * Ищем настоящий JSON-источник.
+ *
+ * Сначала пробуем ссылку из Telegram.
+ * Если это /exec?url=... — пробуем вложенный URL.
+ */
+const candidates = [
+  post.sourceUrl,
+  ...extractNestedUrls(post.sourceUrl)
+].filter(
+  (value, index, array) =>
+    value &&
+    array.indexOf(value) === index
+);
 
-  throw new Error(
-    "Could not decode downloaded file into JSON."
+console.log("");
+console.log("Candidate URLs:");
+
+for (const candidate of candidates) {
+  console.log(
+    ` - ${candidate}`
   );
 }
 
+let parsed = null;
+let selectedDownload = null;
+
+for (const candidate of candidates) {
+  try {
+    const downloaded =
+      await download(candidate);
+
+    const result =
+      parseJson(downloaded.bytes);
+
+    if (result) {
+      parsed = result;
+      selectedDownload = downloaded;
+
+      console.log("");
+      console.log(
+        `Successfully decoded JSON from: ${candidate}`
+      );
+
+      console.log(
+        `Decode method: ${result.method}`
+      );
+
+      break;
+    }
+
+    console.log(
+      `Not JSON from: ${candidate}`
+    );
+  } catch (error) {
+    console.log(
+      `Failed: ${candidate}`
+    );
+
+    console.log(
+      `Reason: ${error.message}`
+    );
+  }
+}
+
+if (!parsed) {
+  throw new Error(
+    "Could not find a downloadable source containing valid JSON."
+  );
+}
+
+const input = parsed.data;
+
+console.log("");
 console.log(
   "Processing VPN configs..."
 );
@@ -140,12 +340,13 @@ console.log(
 const result =
   transformSubscription(input);
 
-const output = Array.isArray(input)
-  ? result.configs
-  : {
-      ...input,
-      configs: result.configs
-    };
+const output =
+  Array.isArray(input)
+    ? result.configs
+    : {
+        ...input,
+        configs: result.configs
+      };
 
 const serialized =
   JSON.stringify(
@@ -199,8 +400,14 @@ await fs.writeFile(
       postId:
         post.postId,
 
-      sourceUrl:
+      telegramUrl:
         post.sourceUrl,
+
+      actualSourceUrl:
+        selectedDownload.url,
+
+      finalSourceUrl:
+        selectedDownload.finalUrl,
 
       checkedAt:
         new Date().toISOString(),
@@ -229,9 +436,15 @@ console.log(
 
 console.log("");
 console.log("Files written:");
-console.log(" - data/subscription.json");
-console.log(" - public/subscription.json");
-console.log(" - data/telegram-state.json");
+console.log(
+  " - data/subscription.json"
+);
+console.log(
+  " - public/subscription.json"
+);
+console.log(
+  " - data/telegram-state.json"
+);
 
 console.log("");
 console.log("Done.");
