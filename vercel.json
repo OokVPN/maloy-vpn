@@ -1,0 +1,31 @@
+{
+  "version": 2,
+  "outputDirectory": "public",
+  "headers": [
+    {
+      "source": "/subscription.json",
+      "headers": [
+        {
+          "key": "profile-title",
+          "value": "UvoVPN"
+        },
+        {
+          "key": "announce",
+          "value": "Лучший VPN"
+        },
+        {
+          "key": "subscription-userinfo",
+          "value": "upload=0; download=1773000000000000000; total=1; expire=0"
+        },
+        {
+          "key": "Content-Type",
+          "value": "application/json; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    }
+  ]
+}
