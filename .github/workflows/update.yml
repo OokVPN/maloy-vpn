@@ -22,15 +22,15 @@ jobs:
           node-version: 22
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
-      - name: Read Telegram and update subscription
+      - name: Update subscription
         run: npm run update
 
       - name: Validate subscription
         run: npm run validate
 
-      - name: Commit changed files
+      - name: Commit changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -38,9 +38,10 @@ jobs:
           git add data/subscription.json
           git add public/subscription.json
           git add data/telegram-state.json
+          git add package-lock.json
 
           if git diff --cached --quiet; then
-            echo "Nothing changed."
+            echo "No changes."
             exit 0
           fi
 
