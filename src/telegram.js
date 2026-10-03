@@ -12,57 +12,79 @@ function channelToPublicUrl(channel) {
     return `https://t.me/s/${username}`;
   }
 
-  return `https://t.me/s/${value.replace(/^@/, "").replace(/^\/+|\/+$/g, "")}`;
+  return `https://t.me/s/${value
+    .replace(/^@/, "")
+    .replace(/^\/+|\/+$/g, "")}`;
 }
 
-/**
- * Returns the newest public post and the first ordinary HTTP(S) URL.
- *
- * Deliberately accepts ANY HTTP(S) host:
- * - chyra.ru
- * - another domain
- * - an IP address
- * - another port
- * - any future URL used by the channel
- *
- * Does NOT accept:
- * - happ://
- * - tg://
- * - happvpn://
- * etc.
- */
-export async function getLatestPost(channel) {
-  const url = channelToPublicUrl(channel);
+function isExternalSubscriptionUrl(rawUrl) {
+  try {
+    const url = new URL(rawUrl);
 
-  const response = await fetch(url, {
+    if (!["http:", "https:"].includes(url.protocol)) {
+      return false;
+    }
+
+    const host = url.hostname.toLowerCase();
+
+    // Не брать Telegram-ссылки
+    if (
+      host === "t.me" ||
+      host === "telegram.me" ||
+      host === "telegram.dog"
+    ) {
+      return false;
+    }
+
+    // Не брать Telegram proxy
+    if (url.pathname.toLowerCase().startsWith("/proxy")) {
+      return false;
+    }
+
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+export async function getLatestPost(channel) {
+  const telegramUrl = channelToPublicUrl(channel);
+
+  const response = await fetch(telegramUrl, {
     redirect: "follow",
     headers: {
-      "user-agent": "Mozilla/5.0 (compatible; Telegram-VPN-Sync/2.0)"
+      "user-agent":
+        "Mozilla/5.0 (compatible; Telegram-VPN-Sync/2.0)"
     }
   });
 
   if (!response.ok) {
-    throw new Error(`Telegram page returned HTTP ${response.status}`);
+    throw new Error(
+      `Telegram returned HTTP ${response.status}`
+    );
   }
 
   const html = await response.text();
   const $ = cheerio.load(html);
+
   const posts = $(".tgme_widget_message");
 
   if (!posts.length) {
-    throw new Error("No public Telegram posts were found.");
+    throw new Error(
+      "No public Telegram posts found."
+    );
   }
 
   const post = posts.last();
-  const postId = post.attr("data-post") ?? null;
 
-  // We inspect the actual post only.
-  const htmlPost = $.html(post);
-  const textPost = post.text();
+  const postId =
+    post.attr("data-post") ?? null;
+
+  const text = post.text();
 
   const urls = [];
 
-  // Links Telegram rendered as <a href="...">
+  // Ссылки из HTML
   post.find("a[href]").each((_, element) => {
     const href = $(element).attr("href");
 
@@ -71,33 +93,40 @@ export async function getLatestPost(channel) {
     }
   });
 
-  // Plain URLs present directly in post text/HTML.
-  const plainUrlMatches =
-    `${htmlPost}\n${textPost}`.match(/https?:\/\/[^\s<>"'<>]+/gi) ?? [];
+  // Ссылки, написанные обычным текстом
+  const plainUrls =
+    text.match(/https?:\/\/[^\s<>"']+/gi) || [];
 
-  urls.push(...plainUrlMatches);
+  urls.push(...plainUrls);
 
-  // Clean punctuation and remove duplicates while preserving order.
+  // Очистка + удаление дублей
   const uniqueUrls = [];
 
-  for (const raw of urls) {
-    const cleaned = raw
+  for (const rawUrl of urls) {
+    const url = rawUrl
       .replace(/&amp;/gi, "&")
       .replace(/[),.;!?]+$/g, "");
 
-    if (!uniqueUrls.includes(cleaned)) {
-      uniqueUrls.push(cleaned);
+    if (!uniqueUrls.includes(url)) {
+      uniqueUrls.push(url);
     }
   }
 
-  if (!uniqueUrls.length) {
-    throw new Error("Latest post contains no HTTP(S) subscription URL.");
+  // Берём первую внешнюю HTTP(S)-ссылку.
+  // t.me / Telegram proxy сюда не попадут.
+  const sourceUrl =
+    uniqueUrls.find(isExternalSubscriptionUrl);
+
+  if (!sourceUrl) {
+    throw new Error(
+      "No external HTTP/HTTPS subscription link found in latest Telegram post."
+    );
   }
 
   return {
     postId,
-    text: textPost,
-    sourceUrl: uniqueUrls[0],
+    text,
+    sourceUrl,
     links: uniqueUrls
   };
 }
