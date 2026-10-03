@@ -1,17 +1,5 @@
 import fs from "node:fs/promises";
 
-/*
- * OokVPN subscription transformer
- *
- * Порядок:
- * 1. 🇪🇺 Автовыбор 🔍
- * 2. 🇪🇺 Автовыбор обход глушилок 🔍
- * 3. Страны по алфавиту
- * 4. Серверы внутри страны: #1, #2, #3...
- *
- * Флаг берётся из remark исходного сервера.
- */
-
 const COUNTRY_OVERRIDES = {
   "🇦🇫": "Афганистан",
   "🇦🇱": "Албания",
@@ -283,29 +271,21 @@ const COUNTRY_OVERRIDES = {
 
   "🇽🇰": "Косово",
   "🇦🇨": "Остров Вознесения",
-  "🇦🇽": "Аландские острова",
-  "🇪🇺": "Европейский союз",
-  "🇺🇳": "ООН"
+  "🇦🇽": "Аландские острова"
 };
 
-const FLAG_RE =
-  /[\u{1F1E6}-\u{1F1FF}]{2}/u;
-
-const FALLBACK_COUNTRY = "Неизвестная страна";
+const FLAG_RE = /[\u{1F1E6}-\u{1F1FF}]{2}/u;
 
 function normalizeText(value) {
-  return String(value ?? "")
-    .replace(/\s+/g, " ")
-    .trim();
+  return String(value ?? "").replace(/\s+/g, " ").trim();
 }
 
 function getFlag(text) {
-  const match = normalizeText(text).match(FLAG_RE);
-  return match?.[0] ?? "";
+  return normalizeText(text).match(FLAG_RE)?.[0] ?? "";
 }
 
 function getCountryName(flag) {
-  if (!flag) return FALLBACK_COUNTRY;
+  if (!flag) return null;
 
   if (COUNTRY_OVERRIDES[flag]) {
     return COUNTRY_OVERRIDES[flag];
@@ -314,7 +294,7 @@ function getCountryName(flag) {
   const chars = [...flag];
 
   if (chars.length !== 2) {
-    return FALLBACK_COUNTRY;
+    return null;
   }
 
   const code = chars
@@ -324,26 +304,18 @@ function getCountryName(flag) {
     .join("");
 
   try {
-    const names = new Intl.DisplayNames(["ru"], {
+    return new Intl.DisplayNames(["ru"], {
       type: "region"
-    });
-
-    return names.of(code) || FALLBACK_COUNTRY;
+    }).of(code) || null;
   } catch {
-    return FALLBACK_COUNTRY;
+    return null;
   }
 }
 
 function getConfigArray(data) {
   if (Array.isArray(data)) return data;
-
-  if (Array.isArray(data?.configs)) {
-    return data.configs;
-  }
-
-  if (Array.isArray(data?.servers)) {
-    return data.servers;
-  }
+  if (Array.isArray(data?.configs)) return data.configs;
+  if (Array.isArray(data?.servers)) return data.servers;
 
   throw new Error("Не найден массив configs/servers.");
 }
@@ -369,11 +341,7 @@ function isProxyOutbound(outbound) {
 }
 
 function extractProxyOutbounds(config) {
-  const outbounds = Array.isArray(config?.outbounds)
-    ? config.outbounds
-    : [];
-
-  return outbounds
+  return (Array.isArray(config?.outbounds) ? config.outbounds : [])
     .filter(isProxyOutbound)
     .map(clone);
 }
@@ -405,19 +373,15 @@ function getSourceRemark(config, index) {
   );
 }
 
-function makeAutoConfig(entries) {
-  const outbounds = [];
-
-  for (let i = 0; i < entries.length; i++) {
-    const outbound = clone(entries[i].outbound);
-
-    outbound.tag = `proxy-${i}`;
-
-    outbounds.push(outbound);
-  }
+function makeAutoConfig(entries, remarks) {
+  const outbounds = entries.map((entry, index) => {
+    const outbound = clone(entry.outbound);
+    outbound.tag = `proxy-${index}`;
+    return outbound;
+  });
 
   return {
-    remarks: "🇪🇺 АВТО ⚡",
+    remarks,
 
     dns: {
       hosts: {
@@ -470,6 +434,7 @@ function makeAutoConfig(entries) {
         {
           tag: "auto-balancer",
           selector: ["proxy-"],
+          fallbackTag: "direct",
           strategy: {
             type: "leastPing"
           }
@@ -485,37 +450,22 @@ function makeAutoConfig(entries) {
     },
 
     burstObservatory: {
+      subjectSelector: ["proxy-"],
       pingConfig: {
-        destination: "https://www.gstatic.com/generate_204",
-        connectivity: "https://www.gstatic.com/generate_204",
-        interval: "30s",
-        timeout: 3000
+        destination: "https://connectivitycheck.gstatic.com/generate_204",
+        connectivity: "",
+        interval: "1m",
+        sampling: 10,
+        timeout: "5s",
+        httpMethod: "HEAD"
       }
     }
   };
 }
 
-function makeBypassAutoConfig(entries) {
-  const config = makeAutoConfig(entries);
-
-  config.remarks = "🇪🇺 🏳 АВТО ⚡";
-
-  return config;
-}
-
-function makeNormalServer(config, country, flag, number) {
+function makeServer(config, country, flag, number) {
   const result = clone(config);
-
-  result.remarks = `${flag || "🏳️"} ${country} #${number}`;
-
-  return result;
-}
-
-function makeBypassServer(config, country, flag, number) {
-  const result = clone(config);
-
-  result.remarks = `${flag || "🏳️"} 🛡️ ${country} #${number}`;
-
+  result.remarks = `${flag} ${country} #${number}`;
   return result;
 }
 
@@ -531,46 +481,38 @@ export function transformSubscription(input) {
 
   const normalEntries = [];
   const bypassEntries = [];
-
   const countries = new Map();
 
   for (let index = 0; index < sourceConfigs.length; index++) {
     const config = sourceConfigs[index];
-
-    const flag = getFlag(
-      config?.remarks ??
-      config?.remark ??
-      config?.name ??
-      ""
-    );
-
+    const remark = getSourceRemark(config, index);
+    const flag = getFlag(remark);
     const country = getCountryName(flag);
 
+    if (!country || !flag) {
+      continue;
+    }
+
+    const bypass = isBypassConfig(config);
     const outbounds = extractProxyOutbounds(config);
 
-    /*
-     * Для AUTO вытаскиваем каждый реальный proxy-outbound.
-     */
     for (const outbound of outbounds) {
       const entry = {
         outbound,
         config,
         flag,
         country,
-        remark: getSourceRemark(config, index)
+        remark
       };
 
-      if (isBypassConfig(config)) {
+      if (bypass) {
         bypassEntries.push(entry);
       } else {
         normalEntries.push(entry);
       }
     }
 
-    /*
-     * Группировка обычных серверов.
-     */
-    if (!isBypassConfig(config)) {
+    if (!bypass) {
       if (!countries.has(country)) {
         countries.set(country, {
           flag,
@@ -582,102 +524,51 @@ export function transformSubscription(input) {
         config,
         flag,
         country,
-        remark: getSourceRemark(config, index)
+        remark
       });
     }
   }
 
-  /*
-   * AUTO №1.
-   *
-   * Обычные серверы.
-   * Обходные LTE/anti-block сюда не попадают.
-   */
-  const autoNormal = normalEntries.length
-    ? makeAutoConfig(normalEntries)
-    : null;
-
-  /*
-   * AUTO №2.
-   *
-   * Только серверы, которые определились как обход глушилок.
-   */
-  const autoBypass = bypassEntries.length
-    ? makeBypassAutoConfig(bypassEntries)
-    : null;
-
   const finalConfigs = [];
 
-  /*
-   * 1. Автовыбор.
-   */
-  if (autoNormal) {
-    finalConfigs.push(autoNormal);
+  if (normalEntries.length) {
+    finalConfigs.push(
+      makeAutoConfig(
+        normalEntries,
+        "🇪🇺 АВТО⚡ #1"
+      )
+    );
   }
 
-  /*
-   * 2. Автовыбор обхода глушилок.
-   */
-  if (autoBypass) {
-    finalConfigs.push(autoBypass);
+  if (bypassEntries.length) {
+    finalConfigs.push(
+      makeAutoConfig(
+        bypassEntries,
+        "🇪🇺 АВТО #2 (Обход глушилок)"
+      )
+    );
   }
 
-  /*
-   * 3. Страны по алфавиту.
-   */
   const sortedCountries = [...countries.entries()]
     .sort(([a], [b]) => compareRussian(a, b));
 
   for (const [country, group] of sortedCountries) {
-    const flag = group.flag || "🏳️";
-
-    group.servers.sort((a, b) => {
-      return compareRussian(a.remark, b.remark);
-    });
+    group.servers.sort((a, b) =>
+      compareRussian(a.remark, b.remark)
+    );
 
     let number = 1;
 
     for (const server of group.servers) {
       finalConfigs.push(
-        makeNormalServer(
+        makeServer(
           server.config,
           country,
-          flag,
+          server.flag,
           number++
         )
       );
     }
-  }
-
-  /*
-   * Если встретились серверы без страны —
-   * не теряем их.
-   */
-  const unknownConfigs = sourceConfigs.filter(config => {
-    const flag = getFlag(
-      config?.remarks ??
-      config?.remark ??
-      config?.name ??
-      ""
-    );
-
-    return (
-      !flag &&
-      !isBypassConfig(config)
-    );
-  });
-
-  let unknownNumber = 1;
-
-  for (const config of unknownConfigs) {
-    finalConfigs.push(
-      makeNormalServer(
-        config,
-        FALLBACK_COUNTRY,
-        "🏳️",
-        unknownNumber++
-      )
-    );
   }
 
   return {
@@ -692,18 +583,12 @@ export function transformSubscription(input) {
   };
 }
 
-/*
- * Поддержка запуска напрямую:
- *
- * node src/transform.js
- */
 if (process.argv[1]?.endsWith("transform.js")) {
   const inputPath = process.argv[2] || "data/subscription.json";
   const outputPath = process.argv[3] || "public/subscription.json";
 
   const raw = await fs.readFile(inputPath, "utf8");
   const input = JSON.parse(raw);
-
   const result = transformSubscription(input);
 
   await fs.mkdir(
@@ -717,6 +602,10 @@ if (process.argv[1]?.endsWith("transform.js")) {
     "utf8"
   );
 
-  console.log("Subscription transformed.");
-  console.log(JSON.stringify(result.stats, null, 2));
+  console.log(
+    `OK: ${result.stats.total} configs | ` +
+    `${result.stats.countries} countries | ` +
+    `${result.stats.normalOutbounds} normal | ` +
+    `${result.stats.bypassOutbounds} bypass`
+  );
 }
