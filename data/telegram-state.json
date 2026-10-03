@@ -1,1 +1,20 @@
-{}
+{
+  "channel": "https://t.me/happvpn",
+  "postId": "happvpn/4249",
+  "telegramUrl": "https://chyra.ru/exec?url=http%3A%2F%2F77.110.104.181%3A5002%2Fsub%2FdEIyZUdhLDE3OTEwNTYwMTINa08SXOUeE/auto",
+  "actualSourceUrl": "https://chyra.ru/exec?url=http%3A%2F%2F77.110.104.181%3A5002%2Fsub%2FdEIyZUdhLDE3OTEwNTYwMTINa08SXOUeE/auto",
+  "finalSourceUrl": "https://chyra.ru/exec?url=http%3A%2F%2F77.110.104.181%3A5002%2Fsub%2FdEIyZUdhLDE3OTEwNTYwMTINa08SXOUeE/auto",
+  "checkedAt": "2026-10-03T20:49:32.907Z",
+  "configCount": 62,
+  "stats": {
+    "🇩🇪:normal": 2,
+    "🇳🇱:normal": 1,
+    "🇮🇩:normal": 2,
+    "🇱🇺:normal": 1,
+    "🇧🇪:normal": 1,
+    "🇦🇹:normal": 1,
+    "🇨🇿:normal": 1,
+    "🇹🇷:normal": 1,
+    "🇩🇪:lte": 46
+  }
+}
