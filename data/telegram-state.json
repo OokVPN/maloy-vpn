@@ -4,13 +4,12 @@
   "telegramUrl": "https://chyra.ru/exec?url=http%3A%2F%2F77.110.104.181%3A5002%2Fsub%2FdEIyZUdhLDE3OTEwNTYwMTINa08SXOUeE/auto",
   "actualSourceUrl": "https://chyra.ru/exec?url=http%3A%2F%2F77.110.104.181%3A5002%2Fsub%2FdEIyZUdhLDE3OTEwNTYwMTINa08SXOUeE/auto",
   "finalSourceUrl": "https://chyra.ru/exec?url=http%3A%2F%2F77.110.104.181%3A5002%2Fsub%2FdEIyZUdhLDE3OTEwNTYwMTINa08SXOUeE/auto",
-  "checkedAt": "2026-10-03T21:10:17.380Z",
-  "configCount": 18,
+  "checkedAt": "2026-10-03T21:18:15.070Z",
+  "configCount": 17,
   "stats": {
-    "source": 62,
-    "normalOutbounds": 76,
-    "bypassOutbounds": 46,
-    "countries": 14,
-    "total": 18
+    "total": 17,
+    "countries": 13,
+    "normalOutbounds": 15,
+    "bypassOutbounds": 51
   }
 }
