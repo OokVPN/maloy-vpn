@@ -21,7 +21,6 @@ console.log(
   `Channel: ${settings.telegram.channel}`
 );
 
-// Получаем последний пост Telegram
 const post = await getLatestPost(
   settings.telegram.channel
 );
@@ -40,7 +39,6 @@ console.log(
 
 console.log("Downloading selected URL...");
 
-// Скачиваем файл
 const response = await fetch(post.sourceUrl, {
   redirect: "follow",
   headers: {
@@ -56,15 +54,14 @@ if (!response.ok) {
   );
 }
 
-const contentType =
-  response.headers.get("content-type") ?? "unknown";
-
 const bytes = Buffer.from(
   await response.arrayBuffer()
 );
 
 console.log(
-  `Content-Type: ${contentType}`
+  `Content-Type: ${
+    response.headers.get("content-type") ?? "unknown"
+  }`
 );
 
 console.log(
@@ -77,57 +74,72 @@ if (!bytes.length) {
   );
 }
 
-// Расширение файла не имеет значения.
-// Сначала пробуем обычный JSON.
-const text = bytes
+/*
+ * Пытаемся получить JSON.
+ *
+ * Если это уже JSON — сразу используем.
+ * Если нет — декодируем Base64.
+ * Если после декодирования опять не JSON —
+ * декодируем ещё раз.
+ */
+
+let current = bytes
   .toString("utf8")
-  .replace(/^\uFEFF/, "");
+  .replace(/^\uFEFF/, "")
+  .trim();
 
-let input;
+let input = null;
 
-try {
-  input = JSON.parse(text);
-
-  console.log(
-    "Downloaded file parsed as JSON."
-  );
-} catch {
-  // Если это base64 с JSON внутри
+for (let attempt = 0; attempt < 10; attempt++) {
   try {
-    const compact = text.replace(/\s+/g, "");
-
-    const decoded = Buffer
-      .from(compact, "base64")
-      .toString("utf8")
-      .replace(/^\uFEFF/, "");
-
-    input = JSON.parse(decoded);
+    input = JSON.parse(current);
 
     console.log(
-      "Downloaded file parsed as base64-encoded JSON."
+      `JSON decoded successfully (attempt ${attempt + 1}).`
     );
+
+    break;
   } catch {
     console.log(
-      "First 300 characters of downloaded file:"
+      `Not JSON, decoding Base64 (attempt ${attempt + 1})...`
     );
+  }
 
-    console.log(
-      text.slice(0, 300)
-    );
+  const clean = current.replace(/\s+/g, "");
 
-    throw new Error(
-      "Downloaded file does not contain JSON or base64-encoded JSON."
-    );
+  try {
+    current = Buffer
+      .from(clean, "base64")
+      .toString("utf8")
+      .replace(/^\uFEFF/, "")
+      .trim();
+  } catch {
+    break;
+  }
+
+  if (!current) {
+    break;
   }
 }
 
-console.log("Processing VPN configs...");
+if (input === null) {
+  console.log("");
+  console.log("Decoded content:");
+  console.log(current.slice(0, 1000));
+  console.log("");
 
-// Преобразуем remarks
+  throw new Error(
+    "Could not decode downloaded file into JSON."
+  );
+}
+
+console.log(
+  "Processing VPN configs..."
+);
+
 const result =
   transformSubscription(input);
 
-// Сохраняем структуру исходного JSON
 const output = Array.isArray(input)
   ? result.configs
   : {
@@ -142,7 +154,6 @@ const serialized =
     2
   ) + "\n";
 
-// Создаём необходимые папки
 await fs.mkdir(
   path.join(root, "data"),
   {
@@ -157,7 +168,6 @@ await fs.mkdir(
   }
 );
 
-// Сохраняем основную подписку
 await fs.writeFile(
   path.join(
     root,
@@ -167,7 +177,6 @@ await fs.writeFile(
   "utf8"
 );
 
-// Копия для Vercel
 await fs.writeFile(
   path.join(
     root,
@@ -177,7 +186,6 @@ await fs.writeFile(
   "utf8"
 );
 
-// Сохраняем состояние Telegram
 await fs.writeFile(
   path.join(
     root,
@@ -221,15 +229,9 @@ console.log(
 
 console.log("");
 console.log("Files written:");
-console.log(
-  " - data/subscription.json"
-);
-console.log(
-  " - public/subscription.json"
-);
-console.log(
-  " - data/telegram-state.json"
-);
+console.log(" - data/subscription.json");
+console.log(" - public/subscription.json");
+console.log(" - data/telegram-state.json");
 
 console.log("");
 console.log("Done.");
