@@ -442,9 +442,11 @@ function makeAutoConfig(entries, remarks) {
       pingConfig: {
         destination:
           "https://connectivitycheck.gstatic.com/generate_204",
-        interval: "1m",
-        sampling: 10,
-        timeout: "5s",
+        connectivity:
+          "https://connectivitycheck.gstatic.com/generate_204",
+        interval: "30s",
+        sampling: 5,
+        timeout: "10s",
         httpMethod: "HEAD"
       }
     }
@@ -587,4 +589,4 @@ if (process.argv[1]?.endsWith("transform.js")) {
     `${result.stats.normalOutbounds} normal | ` +
     `${result.stats.bypassOutbounds} bypass`
   );
-}
+  }
