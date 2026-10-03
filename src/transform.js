@@ -381,14 +381,14 @@ function getCountryName(flag) {
   }
 }
 
-function makeAutoConfig(entries, remarks) {
+function makeAutoConfig(entries, remarks, prefix) {
   const outbounds = [];
 
   for (let i = 0; i < entries.length; i++) {
     const proxyOutbounds = extractProxyOutbounds(entries[i].config);
 
     for (const outbound of proxyOutbounds) {
-      outbound.tag = `proxy-${outbounds.length}`;
+      outbound.tag = `${prefix}${outbounds.length}`;
       outbounds.push(outbound);
     }
   }
@@ -443,7 +443,7 @@ function makeAutoConfig(entries, remarks) {
       balancers: [
         {
           tag: "auto-balancer",
-          selector: ["proxy-"],
+          selector: [`${prefix}`],
           fallbackTag: "direct",
           strategy: {
             type: "leastPing"
@@ -461,7 +461,7 @@ function makeAutoConfig(entries, remarks) {
     },
 
     burstObservatory: {
-      subjectSelector: ["proxy-"],
+      subjectSelector: [`${prefix}`],
       pingConfig: {
         destination:
           "https://connectivitycheck.gstatic.com/generate_204",
@@ -542,7 +542,8 @@ export function transformSubscription(input) {
     result.push(
       makeAutoConfig(
         normalEntries,
-        "🇪🇺 АВТО #1 ⚡"
+        "🇪🇺 АВТО #1 ⚡",
+        "normal-proxy-"
       )
     );
   }
@@ -551,7 +552,8 @@ export function transformSubscription(input) {
     result.push(
       makeAutoConfig(
         bypassEntries,
-        "🇪🇺 АВТО #2 (Обход глушилок)"
+        "🇪🇺 АВТО #2 (Обход глушилок)",
+        "bypass-proxy-"
       )
     );
   }
