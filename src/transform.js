@@ -394,83 +394,319 @@ function makeAutoConfig(entries, remarks, prefix) {
   }
 
   return {
-    remarks,
-
     dns: {
+      tag: "dns-module",
       servers: [
+        {
+          address: "77.88.8.8",
+          domains: [
+            "domain:ozon.com",
+            "domain:ozon.ru",
+            "domain:wildberries.ru",
+            "domain:wb.ru",
+            "domain:avito.ru",
+            "domain:vk.com",
+            "domain:yandex.ru",
+            "domain:yandex.net",
+            "domain:sber.ru",
+            "domain:sberbank.ru",
+            "domain:gosuslugi.ru",
+            "domain:mail.ru",
+            "domain:ok.ru",
+            "domain:rutube.ru",
+            "domain:tinkoff.ru",
+            "domain:raiffeisen.ru",
+            "domain:alfa-bank.ru",
+            "domain:mvideo.ru",
+            "domain:dns-shop.ru",
+            "domain:eldorado.ru",
+            "domain:citilink.ru",
+            "domain:kaspersky.ru",
+            "domain:mos.ru",
+            "domain:rbc.ru",
+            "domain:gazprombank.ru",
+            "domain:vtb.ru",
+            "domain:sbp.ru",
+            "domain:psbank.ru",
+            "domain:rosbank.ru",
+            "domain:mkb.ru",
+            "domain:sovcombank.ru",
+            "domain:homecredit.ru",
+            "domain:pochtabank.ru",
+            "domain:qiwi.com",
+            "domain:yoomoney.ru",
+            "domain:nalog.ru",
+            "domain:cbr.ru",
+            "domain:pochta.ru",
+            "domain:gibdd.ru",
+            "domain:rosreestr.ru",
+            "domain:mvd.ru",
+            "domain:fns.ru",
+            "domain:mts.ru",
+            "domain:beeline.ru",
+            "domain:megafon.ru",
+            "domain:tele2.ru",
+            "domain:yota.ru",
+            "domain:lamoda.ru",
+            "domain:sbermegamarket.ru",
+            "domain:samokat.ru",
+            "domain:cdek.ru",
+            "domain:boxberry.ru",
+            "domain:kinopoisk.ru",
+            "domain:ivi.ru",
+            "domain:okko.tv",
+            "domain:more.tv",
+            "domain:start.ru",
+            "domain:2gis.ru",
+            "domain:rzd.ru",
+            "domain:aeroflot.ru",
+            "domain:s7.ru"
+          ]
+        },
         "1.1.1.1",
-        "8.8.8.8",
-        "https+local://1.1.1.1/dns-query",
-        "https+local://8.8.8.8/dns-query"
-      ]
+        "1.0.0.1",
+        "8.8.8.8"
+      ],
+      disableCache: false,
+      queryStrategy: "UseIPv4"
+    },
+
+    log: {
+      loglevel: "warning"
+    },
+
+    policy: {
+      levels: {
+        "0": {
+          connIdle: 300,
+          handshake: 4,
+          uplinkOnly: 1,
+          downlinkOnly: 1
+        }
+      },
+      system: {
+        statsOutboundUplink: false,
+        statsOutboundDownlink: false
+      }
+    },
+
+    routing: {
+      rules: [
+        {
+          ip: [
+            "77.88.8.8",
+            "77.88.8.1"
+          ],
+          type: "field",
+          inboundTag: [
+            "dns-module"
+          ],
+          outboundTag: "direct"
+        },
+        {
+          type: "field",
+          inboundTag: [
+            "dns-module"
+          ],
+          balancerTag: "MAIN_BALANCER"
+        },
+        {
+          port: 53,
+          type: "field",
+          outboundTag: "dns-out"
+        },
+        {
+          type: "field",
+          protocol: [
+            "bittorrent"
+          ],
+          outboundTag: "direct"
+        },
+        {
+          ip: [
+            "10.0.0.0/8",
+            "100.64.0.0/10",
+            "127.0.0.0/8",
+            "169.254.0.0/16",
+            "172.16.0.0/12",
+            "192.168.0.0/16",
+            "::1/128",
+            "fc00::/7",
+            "fe80::/10"
+          ],
+          type: "field",
+          outboundTag: "direct"
+        },
+        {
+          type: "field",
+          domain: [
+            "domain:ozon.com",
+            "domain:ozon.ru",
+            "domain:wildberries.ru",
+            "domain:wb.ru",
+            "domain:avito.ru",
+            "domain:vk.com",
+            "domain:yandex.ru",
+            "domain:yandex.net",
+            "domain:sber.ru",
+            "domain:sberbank.ru",
+            "domain:gosuslugi.ru",
+            "domain:mail.ru",
+            "domain:ok.ru",
+            "domain:rutube.ru",
+            "domain:tinkoff.ru",
+            "domain:raiffeisen.ru",
+            "domain:alfa-bank.ru",
+            "domain:mvideo.ru",
+            "domain:dns-shop.ru",
+            "domain:eldorado.ru",
+            "domain:citilink.ru",
+            "domain:kaspersky.ru",
+            "domain:mos.ru",
+            "domain:rbc.ru",
+            "domain:gazprombank.ru",
+            "domain:vtb.ru",
+            "domain:sbp.ru",
+            "domain:psbank.ru",
+            "domain:rosbank.ru",
+            "domain:mkb.ru",
+            "domain:homecredit.ru",
+            "domain:pochtabank.ru",
+            "domain:qiwi.com",
+            "domain:yoomoney.ru",
+            "domain:nalog.ru",
+            "domain:cbr.ru",
+            "domain:pochta.ru",
+            "domain:gibdd.ru",
+            "domain:rosreestr.ru",
+            "domain:mvd.ru",
+            "domain:fns.ru",
+            "domain:mts.ru",
+            "domain:beeline.ru",
+            "domain:megafon.ru",
+            "domain:tele2.ru",
+            "domain:yota.ru",
+            "domain:lamoda.ru",
+            "domain:sbermegamarket.ru",
+            "domain:samokat.ru",
+            "domain:cdek.ru",
+            "domain:boxberry.ru",
+            "domain:kinopoisk.ru",
+            "domain:ivi.ru",
+            "domain:okko.tv",
+            "domain:more.tv",
+            "domain:start.ru",
+            "domain:2gis.ru",
+            "domain:rzd.ru",
+            "domain:aeroflot.ru",
+            "domain:s7.ru"
+          ],
+          outboundTag: "direct"
+        },
+        {
+          type: "field",
+          network: "tcp,udp",
+          balancerTag: "MAIN_BALANCER"
+        }
+      ],
+
+      balancers: [
+        {
+          tag: "MAIN_BALANCER",
+          selector: [
+            `${prefix}`
+          ],
+          strategy: {
+            type: "leastLoad",
+            settings: {
+              maxRTT: "2s",
+              expected: 3,
+              baselines: [
+                "80ms",
+                "150ms",
+                "300ms"
+              ],
+              tolerance: 0.1
+            }
+          },
+          fallbackTag: "block"
+        }
+      ],
+
+      domainMatcher: "hybrid",
+      domainStrategy: "IPIfNonMatch"
     },
 
     inbounds: [
       {
-        listen: "127.0.0.1",
+        tag: "socks",
         port: 10808,
+        listen: "127.0.0.1",
         protocol: "socks",
         settings: {
-          auth: "noauth",
-          udp: true
+          udp: true,
+          auth: "noauth"
         },
-        tag: "socks"
+        sniffing: {
+          enabled: true,
+          routeOnly: true,
+          destOverride: [
+            "http",
+            "tls",
+            "quic"
+          ]
+        }
       },
       {
-        listen: "127.0.0.1",
+        tag: "http",
         port: 10809,
+        listen: "127.0.0.1",
         protocol: "http",
-        settings: {},
-        tag: "http"
+        settings: {
+          allowTransparent: false
+        },
+        sniffing: {
+          enabled: true,
+          routeOnly: true,
+          destOverride: [
+            "http",
+            "tls",
+            "quic"
+          ]
+        }
       }
     ],
 
     outbounds: [
       ...outbounds,
       {
-        protocol: "freedom",
-        tag: "direct"
+        tag: "block",
+        protocol: "blackhole"
       },
       {
-        protocol: "blackhole",
-        tag: "block"
+        tag: "direct",
+        protocol: "freedom"
+      },
+      {
+        tag: "dns-out",
+        protocol: "dns"
       }
     ],
 
-    routing: {
-      domainStrategy: "AsIs",
-
-      balancers: [
-        {
-          tag: "auto-balancer",
-          selector: [`${prefix}`],
-          fallbackTag: "direct",
-          strategy: {
-            type: "leastPing"
-          }
-        }
-      ],
-
-      rules: [
-        {
-          type: "field",
-          inboundTag: ["socks", "http"],
-          balancerTag: "auto-balancer"
-        }
+    burstObservatory: {
+      pingConfig: {
+        timeout: "5s",
+        interval: "60s",
+        sampling: 3,
+        httpMethod: "HEAD",
+        destination: "https://www.gstatic.com/generate_204"
+      },
+      subjectSelector: [
+        `${prefix}`
       ]
     },
 
-    burstObservatory: {
-      subjectSelector: [`${prefix}`],
-      pingConfig: {
-        destination:
-          "https://connectivitycheck.gstatic.com/generate_204",
-        interval: "1m",
-        sampling: 10,
-        timeout: "5s",
-        httpMethod: "HEAD"
-      }
-    }
+    remarks
   };
 }
 
