@@ -1,15 +1,15 @@
 {
   "channel": "https://t.me/happvpn",
-  "postId": "happvpn/4271",
-  "telegramUrl": "https://doroguuuuu.ru/exec?url=http%3A%2F%2F77.110.104.181%3A5002%2Fsub%2FZGkyYm92LDE3OTE0Mzg3MjM7fLQxemTh6/auto",
-  "actualSourceUrl": "https://doroguuuuu.ru/exec?url=http%3A%2F%2F77.110.104.181%3A5002%2Fsub%2FZGkyYm92LDE3OTE0Mzg3MjM7fLQxemTh6/auto",
-  "finalSourceUrl": "https://doroguuuuu.ru/exec?url=http%3A%2F%2F77.110.104.181%3A5002%2Fsub%2FZGkyYm92LDE3OTE0Mzg3MjM7fLQxemTh6/auto",
-  "checkedAt": "2026-10-08T07:22:01.633Z",
+  "postId": "happvpn/4273",
+  "telegramUrl": "https://doroguuuuu.ru/exec?url=http%3A%2F%2F77.110.104.181%3A5002%2Fsub%2FNG1HQ2FWLDE3OTE0NjYzNDIVn2Fts8Uvj/auto",
+  "actualSourceUrl": "https://doroguuuuu.ru/exec?url=http%3A%2F%2F77.110.104.181%3A5002%2Fsub%2FNG1HQ2FWLDE3OTE0NjYzNDIVn2Fts8Uvj/auto",
+  "finalSourceUrl": "https://doroguuuuu.ru/exec?url=http%3A%2F%2F77.110.104.181%3A5002%2Fsub%2FNG1HQ2FWLDE3OTE0NjYzNDIVn2Fts8Uvj/auto",
+  "checkedAt": "2026-10-08T14:44:10.957Z",
   "configCount": 17,
   "stats": {
     "total": 17,
     "countries": 13,
     "normalOutbounds": 15,
-    "bypassOutbounds": 45
+    "bypassOutbounds": 34
   }
 }
