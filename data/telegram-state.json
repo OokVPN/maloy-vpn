@@ -4,12 +4,12 @@
   "telegramUrl": "https://doroguuuuu.ru/exec?url=http%3A%2F%2F77.110.104.181%3A5002%2Fsub%2FT1N6MFY0LDE3OTE5MTYyMDUT9AvqcNYjz/auto",
   "actualSourceUrl": "https://doroguuuuu.ru/exec?url=http%3A%2F%2F77.110.104.181%3A5002%2Fsub%2FT1N6MFY0LDE3OTE5MTYyMDUT9AvqcNYjz/auto",
   "finalSourceUrl": "https://doroguuuuu.ru/exec?url=http%3A%2F%2F77.110.104.181%3A5002%2Fsub%2FT1N6MFY0LDE3OTE5MTYyMDUT9AvqcNYjz/auto",
-  "checkedAt": "2026-10-14T01:35:35.514Z",
+  "checkedAt": "2026-10-14T06:41:27.602Z",
   "configCount": 15,
   "stats": {
     "total": 15,
     "countries": 12,
     "normalOutbounds": 13,
-    "bypassOutbounds": 55
+    "bypassOutbounds": 47
   }
 }
