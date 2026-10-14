@@ -1,15 +1,15 @@
 {
   "channel": "https://t.me/happvpn",
-  "postId": "happvpn/4305",
-  "telegramUrl": "https://happivpn.nenadoblokirowatgnidda.ru/exec?url=http%3A%2F%2F77.110.104.181%3A5002%2Fsub%2FWEZUTW9rLDE3OTE5ODA0MTEBYm4R-CYJA/auto",
-  "actualSourceUrl": "https://happivpn.nenadoblokirowatgnidda.ru/exec?url=http%3A%2F%2F77.110.104.181%3A5002%2Fsub%2FWEZUTW9rLDE3OTE5ODA0MTEBYm4R-CYJA/auto",
-  "finalSourceUrl": "https://happivpn.nenadoblokirowatgnidda.ru/exec?url=http%3A%2F%2F77.110.104.181%3A5002%2Fsub%2FWEZUTW9rLDE3OTE5ODA0MTEBYm4R-CYJA/auto",
-  "checkedAt": "2026-10-14T12:22:50.837Z",
+  "postId": "happvpn/4307",
+  "telegramUrl": "https://happivpn.nenadoblokirowatgnidda.ru/exec?url=http%3A%2F%2F77.110.104.181%3A5002%2Fsub%2FeTk1YVI1LDE3OTE5OTgwNDYwHd4t2tWLY/auto",
+  "actualSourceUrl": "https://happivpn.nenadoblokirowatgnidda.ru/exec?url=http%3A%2F%2F77.110.104.181%3A5002%2Fsub%2FeTk1YVI1LDE3OTE5OTgwNDYwHd4t2tWLY/auto",
+  "finalSourceUrl": "https://happivpn.nenadoblokirowatgnidda.ru/exec?url=http%3A%2F%2F77.110.104.181%3A5002%2Fsub%2FeTk1YVI1LDE3OTE5OTgwNDYwHd4t2tWLY/auto",
+  "checkedAt": "2026-10-14T17:24:22.156Z",
   "configCount": 15,
   "stats": {
     "total": 15,
     "countries": 12,
     "normalOutbounds": 13,
-    "bypassOutbounds": 31
+    "bypassOutbounds": 36
   }
 }
