@@ -1,15 +1,15 @@
 {
   "channel": "https://t.me/happvpn",
-  "postId": "happvpn/4310",
-  "telegramUrl": "https://happivpn.nenadoblokirowatgnidda.ru/exec?url=http%3A%2F%2F77.110.104.181%3A5002%2Fsub%2FQ1dTVzlVLDE3OTIwNjE3MDQWE_3kRYjz5/auto",
-  "actualSourceUrl": "https://happivpn.nenadoblokirowatgnidda.ru/exec?url=http%3A%2F%2F77.110.104.181%3A5002%2Fsub%2FQ1dTVzlVLDE3OTIwNjE3MDQWE_3kRYjz5/auto",
-  "finalSourceUrl": "https://happivpn.nenadoblokirowatgnidda.ru/exec?url=http%3A%2F%2F77.110.104.181%3A5002%2Fsub%2FQ1dTVzlVLDE3OTIwNjE3MDQWE_3kRYjz5/auto",
-  "checkedAt": "2026-10-15T12:08:33.729Z",
+  "postId": "happvpn/4312",
+  "telegramUrl": "https://jamshut.online/exec?url=http%3A%2F%2F77.110.104.181%3A5002%2Fsub%2FZ0llVWxQLDE3OTIwNzkxODclZIVtFa96c/auto",
+  "actualSourceUrl": "https://jamshut.online/exec?url=http%3A%2F%2F77.110.104.181%3A5002%2Fsub%2FZ0llVWxQLDE3OTIwNzkxODclZIVtFa96c/auto",
+  "finalSourceUrl": "https://jamshut.online/exec?url=http%3A%2F%2F77.110.104.181%3A5002%2Fsub%2FZ0llVWxQLDE3OTIwNzkxODclZIVtFa96c/auto",
+  "checkedAt": "2026-10-15T16:55:38.296Z",
   "configCount": 15,
   "stats": {
     "total": 15,
     "countries": 12,
     "normalOutbounds": 13,
-    "bypassOutbounds": 49
+    "bypassOutbounds": 43
   }
 }
