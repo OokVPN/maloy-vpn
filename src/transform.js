@@ -338,6 +338,107 @@ function getFlagFromConfig(config, remark) {
   return null;
 }
 
+/**
+ * Нормализует ISO-код страны.
+ * Например: "nl" -> "NL".
+ */
+function normalizeCountryCode(value) {
+  if (typeof value !== "string") return null;
+
+  const code = value.trim().toUpperCase();
+
+  return /^[A-Z]{2}$/.test(code) ? code : null;
+}
+
+/**
+ * Получает countryCode непосредственно из конфига сервера.
+ * Основной вариант — config.countryCode.
+ * Дополнительные варианты нужны для совместимости
+ * с разными форматами источника.
+ */
+function getCountryCodeFromConfig(config) {
+  const candidates = [
+    config?.countryCode,
+    config?.country_code,
+    config?.server?.countryCode,
+    config?.server?.country_code
+  ];
+
+  for (const value of candidates) {
+    const code = normalizeCountryCode(value);
+
+    if (code) {
+      return code;
+    }
+  }
+
+  return null;
+}
+
+/**
+ * Получает русское название страны по ISO-коду.
+ * Флаг для определения страны не используется.
+ */
+function getCountryNameFromCode(countryCode) {
+  const code = normalizeCountryCode(countryCode);
+
+  if (!code || code === "EU" || code === "UN") {
+    return null;
+  }
+
+  if (code === "XK") {
+    return "Косово";
+  }
+
+  try {
+    const name = new Intl.DisplayNames(["ru"], {
+      type: "region"
+    }).of(code);
+
+    if (
+      !name ||
+      name === code ||
+      name === "Европейский союз" ||
+      name === "Организация Объединенных Наций" ||
+      name === "ООН"
+    ) {
+      return null;
+    }
+
+    return name;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Формирует флаг по ISO-коду страны.
+ * Например: NL -> 🇳🇱, LU -> 🇱🇺.
+ */
+function getFlagFromCountryCode(countryCode) {
+  const code = normalizeCountryCode(countryCode);
+
+  if (!code || code === "EU" || code === "UN") {
+    return null;
+  }
+
+  // UK иногда приходит вместо официального ISO-кода GB.
+  const normalizedCode = code === "UK" ? "GB" : code;
+
+  return [...normalizedCode]
+    .map(char =>
+      String.fromCodePoint(
+        0x1F1E6 + char.charCodeAt(0) - 65
+      )
+    )
+    .join("");
+}
+
+/**
+ * Старый способ определения страны по флагу.
+ * Оставляем его для совместимости с серверами,
+ * у которых отсутствует countryCode.
+ */
 function getCountryName(flag) {
   if (!flag) return null;
 
@@ -710,7 +811,7 @@ function makeAutoConfig(entries, remarks) {
 function makeServer(config, country, flag, number) {
   const server = clone(config);
 
-  server.remarks = `${flag} ${country} #${number}`;
+  server.remarks = `${flag} ${country} №${number}`;
 
   return server;
 }
@@ -726,15 +827,20 @@ export function transformSubscription(input) {
     const config = sourceConfigs[index];
 
     const remark = getSourceRemark(config, index);
-    const flag = getFlagFromConfig(config, remark);
+    const sourceFlag = getFlagFromConfig(config, remark);
+    const countryCode = getCountryCodeFromConfig(config);
 
-    if (!flag) {
-      continue;
-    }
+    // countryCode имеет приоритет над флагом и названием в remarks.
+    const country = countryCode
+      ? getCountryNameFromCode(countryCode)
+      : getCountryName(sourceFlag);
 
-    const country = getCountryName(flag);
+    // Если countryCode присутствует, используем соответствующий флаг.
+    const flag = countryCode
+      ? getFlagFromCountryCode(countryCode)
+      : sourceFlag;
 
-    if (!country) {
+    if (!flag || !country) {
       continue;
     }
 
@@ -775,7 +881,7 @@ export function transformSubscription(input) {
     result.push(
       makeAutoConfig(
         normalEntries,
-        "🇪🇺 АВТО #1 ⚡"
+        "🇪🇺 АВТО №1 ⚡"
       )
     );
   }
@@ -784,7 +890,7 @@ export function transformSubscription(input) {
     result.push(
       makeAutoConfig(
         bypassEntries,
-        "🇪🇺 АВТО #2 (Обход глушилок)"
+        "🇪🇺 АВТО №2 (Обход глушилок)"
       )
     );
   }
@@ -843,4 +949,4 @@ if (process.argv[1]?.endsWith("transform.js")) {
     `${result.stats.normalOutbounds} normal | ` +
     `${result.stats.bypassOutbounds} bypass`
   );
-}
+            }
