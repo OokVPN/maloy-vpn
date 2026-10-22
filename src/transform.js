@@ -16,7 +16,6 @@ const COUNTRY_OVERRIDES = {
   "🇦🇺": "Австралия",
   "🇦🇹": "Австрия",
   "🇦🇿": "Азербайджан",
-
   "🇧🇸": "Багамы",
   "🇧🇭": "Бахрейн",
   "🇧🇩": "Бангладеш",
@@ -36,7 +35,6 @@ const COUNTRY_OVERRIDES = {
   "🇧🇬": "Болгария",
   "🇧🇫": "Буркина-Фасо",
   "🇧🇮": "Бурунди",
-
   "🇰🇭": "Камбоджа",
   "🇨🇲": "Камерун",
   "🇨🇦": "Канада",
@@ -56,12 +54,10 @@ const COUNTRY_OVERRIDES = {
   "🇨🇺": "Куба",
   "🇨🇾": "Кипр",
   "🇨🇿": "Чехия",
-
   "🇩🇰": "Дания",
   "🇩🇯": "Джибути",
   "🇩🇲": "Доминика",
   "🇩🇴": "Доминиканская Республика",
-
   "🇪🇨": "Эквадор",
   "🇪🇬": "Египет",
   "🇸🇻": "Сальвадор",
@@ -70,7 +66,6 @@ const COUNTRY_OVERRIDES = {
   "🇪🇪": "Эстония",
   "🇸🇿": "Эсватини",
   "🇪🇹": "Эфиопия",
-
   "🇫🇯": "Фиджи",
   "🇫🇮": "Финляндия",
   "🇫🇷": "Франция",
@@ -85,12 +80,10 @@ const COUNTRY_OVERRIDES = {
   "🇬🇳": "Гвинея",
   "🇬🇼": "Гвинея-Бисау",
   "🇬🇾": "Гайана",
-
   "🇭🇹": "Гаити",
   "🇭🇳": "Гондурас",
   "🇭🇰": "Гонконг",
   "🇭🇺": "Венгрия",
-
   "🇮🇸": "Исландия",
   "🇮🇳": "Индия",
   "🇮🇩": "Индонезия",
@@ -99,11 +92,9 @@ const COUNTRY_OVERRIDES = {
   "🇮🇪": "Ирландия",
   "🇮🇱": "Израиль",
   "🇮🇹": "Италия",
-
   "🇯🇲": "Ямайка",
   "🇯🇵": "Япония",
   "🇯🇴": "Иордания",
-
   "🇰🇿": "Казахстан",
   "🇰🇪": "Кения",
   "🇰🇮": "Кирибати",
@@ -111,7 +102,6 @@ const COUNTRY_OVERRIDES = {
   "🇰🇷": "Южная Корея",
   "🇰🇼": "Кувейт",
   "🇰🇬": "Кыргызстан",
-
   "🇱🇦": "Лаос",
   "🇱🇻": "Латвия",
   "🇱🇧": "Ливан",
@@ -121,7 +111,6 @@ const COUNTRY_OVERRIDES = {
   "🇱🇮": "Лихтенштейн",
   "🇱🇹": "Литва",
   "🇱🇺": "Люксембург",
-
   "🇲🇴": "Макао",
   "🇲🇬": "Мадагаскар",
   "🇲🇼": "Малави",
@@ -141,7 +130,6 @@ const COUNTRY_OVERRIDES = {
   "🇲🇦": "Марокко",
   "🇲🇿": "Мозамбик",
   "🇲🇲": "Мьянма",
-
   "🇳🇦": "Намибия",
   "🇳🇷": "Науру",
   "🇳🇵": "Непал",
@@ -152,7 +140,6 @@ const COUNTRY_OVERRIDES = {
   "🇳🇬": "Нигерия",
   "🇲🇰": "Северная Македония",
   "🇳🇴": "Норвегия",
-
   "🇴🇲": "Оман",
   "🇵🇰": "Пакистан",
   "🇵🇼": "Палау",
@@ -165,12 +152,10 @@ const COUNTRY_OVERRIDES = {
   "🇵🇱": "Польша",
   "🇵🇹": "Португалия",
   "🇵🇷": "Пуэрто-Рико",
-
   "🇶🇦": "Катар",
   "🇷🇴": "Румыния",
   "🇷🇺": "Россия",
   "🇷🇼": "Руанда",
-
   "🇼🇸": "Самоа",
   "🇸🇲": "Сан-Марино",
   "🇸🇦": "Саудовская Аравия",
@@ -192,7 +177,6 @@ const COUNTRY_OVERRIDES = {
   "🇸🇪": "Швеция",
   "🇨🇭": "Швейцария",
   "🇸🇾": "Сирия",
-
   "🇹🇼": "Тайвань",
   "🇹🇯": "Таджикистан",
   "🇹🇿": "Танзания",
@@ -338,94 +322,303 @@ function getFlagFromConfig(config, remark) {
   return null;
 }
 
-/**
- * Нормализует ISO-код страны.
- * Например: "nl" -> "NL".
- */
+function normalizeCountryText(value) {
+  return String(value ?? "")
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLocaleLowerCase("ru")
+    .replace(/[’'\u0060]/g, "")
+    .replace(/[^\p{L}\p{N}]+/gu, " ")
+    .trim()
+    .replace(/\s+/g, " ");
+}
+
+function isIgnoredCountryName(name) {
+  const normalized = normalizeCountryText(name);
+
+  return !normalized ||
+    normalized === "eu" ||
+    normalized === "un" ||
+    normalized.includes("european union") ||
+    normalized.includes("европейский союз") ||
+    normalized.includes("united nations") ||
+    normalized.includes("объединенных наций") ||
+    normalized.includes("неизвестный регион") ||
+    normalized.includes("unknown region");
+}
+
+const REGION_NAMES_RU = new Intl.DisplayNames(["ru"], {
+  type: "region"
+});
+
+const REGION_NAMES_EN = new Intl.DisplayNames(["en"], {
+  type: "region"
+});
+
+const COUNTRY_CODES = new Set();
+const COUNTRY_NAME_TO_CODE = new Map();
+
+function addCountryName(name, code) {
+  const normalized = normalizeCountryText(name);
+
+  if (
+    normalized &&
+    !isIgnoredCountryName(name) &&
+    !COUNTRY_NAME_TO_CODE.has(normalized)
+  ) {
+    COUNTRY_NAME_TO_CODE.set(normalized, code);
+  }
+}
+
+function countryCodeFromFlag(flag) {
+  if (typeof flag !== "string") return null;
+
+  const chars = [...flag];
+
+  if (chars.length !== 2) return null;
+
+  const values = chars.map(char => char.codePointAt(0));
+
+  if (values.some(value => value < 0x1F1E6 || value > 0x1F1FF)) {
+    return null;
+  }
+
+  const code = values
+    .map(value => String.fromCharCode(value - 0x1F1E6 + 65))
+    .join("");
+
+  return code === "UK" ? "GB" : code;
+}
+
+for (let first = 65; first <= 90; first++) {
+  for (let second = 65; second <= 90; second++) {
+    const code = String.fromCharCode(first, second);
+    const russianName = REGION_NAMES_RU.of(code);
+    const englishName = REGION_NAMES_EN.of(code);
+
+    if (
+      !russianName ||
+      russianName === code ||
+      isIgnoredCountryName(russianName) ||
+      ["EU", "UN", "ZZ", "XA", "XB"].includes(code)
+    ) {
+      continue;
+    }
+
+    COUNTRY_CODES.add(code);
+    addCountryName(russianName, code);
+    addCountryName(englishName, code);
+  }
+}
+
+COUNTRY_CODES.add("XK");
+addCountryName("Косово", "XK");
+addCountryName("Kosovo", "XK");
+
+for (const [flag, name] of Object.entries(COUNTRY_OVERRIDES)) {
+  const code = countryCodeFromFlag(flag);
+
+  if (code) {
+    COUNTRY_CODES.add(code);
+    addCountryName(name, code);
+  }
+}
+
+const COUNTRY_NAME_ALIASES = {
+  holland: "NL",
+  hollande: "NL",
+  nederland: "NL",
+  netherlands: "NL",
+  нидерланды: "NL",
+  люксембург: "LU",
+  luxembourg: "LU",
+  usa: "US",
+  "u s a": "US",
+  "united states": "US",
+  "united states of america": "US",
+  сша: "US",
+  uk: "GB",
+  "great britain": "GB",
+  britain: "GB",
+  england: "GB",
+  великобритания: "GB",
+  uae: "AE",
+  "united arab emirates": "AE",
+  оаэ: "AE",
+  "south korea": "KR",
+  "north korea": "KP",
+  "южная корея": "KR",
+  "северная корея": "KP",
+  "ivory coast": "CI",
+  "czech republic": "CZ",
+  turkiye: "TR",
+  russia: "RU",
+  россия: "RU",
+  belarus: "BY",
+  беларусь: "BY"
+};
+
+for (const [name, code] of Object.entries(COUNTRY_NAME_ALIASES)) {
+  if (COUNTRY_CODES.has(code) || code === "XK") {
+    addCountryName(name, code);
+  }
+}
+
+const SORTED_COUNTRY_NAMES = [...COUNTRY_NAME_TO_CODE.keys()]
+  .sort((a, b) => b.length - a.length);
+
 function normalizeCountryCode(value) {
   if (typeof value !== "string") return null;
 
-  const code = value.trim().toUpperCase();
+  const valueCode = value.trim().toUpperCase();
+  const code = valueCode === "UK" ? "GB" : valueCode;
 
-  return /^[A-Z]{2}$/.test(code) ? code : null;
+  if (!/^[A-Z]{2}$/.test(code)) return null;
+  if (code === "XK") return code;
+
+  return COUNTRY_CODES.has(code) && code !== "EU" && code !== "UN"
+    ? code
+    : null;
 }
 
-/**
- * Получает countryCode непосредственно из конфига сервера.
- * Основной вариант — config.countryCode.
- * Дополнительные варианты нужны для совместимости
- * с разными форматами источника.
- */
 function getCountryCodeFromConfig(config) {
   const candidates = [
     config?.countryCode,
     config?.country_code,
+    config?.isoCountryCode,
+    config?.iso_country_code,
+    config?.geo?.countryCode,
+    config?.geo?.country_code,
+    config?.location?.countryCode,
+    config?.location?.country_code,
     config?.server?.countryCode,
-    config?.server?.country_code
+    config?.server?.country_code,
+    config?.node?.countryCode,
+    config?.node?.country_code,
+    config?.metadata?.countryCode,
+    config?.metadata?.country_code,
+    config?.meta?.countryCode,
+    config?.meta?.country_code
   ];
 
   for (const value of candidates) {
     const code = normalizeCountryCode(value);
 
-    if (code) {
-      return code;
+    if (code) return code;
+  }
+
+  return null;
+}
+
+function getCountryCodeFromRemark(remark) {
+  if (typeof remark !== "string") return null;
+
+  const patterns = [
+    /\[\s*([A-Z]{2})\s*\]/i,
+    /\(\s*([A-Z]{2})\s*\)/i,
+    /\bcountry\s*[:=]\s*([A-Z]{2})\b/i
+  ];
+
+  for (const pattern of patterns) {
+    const match = remark.match(pattern);
+
+    if (!match) continue;
+
+    const code = normalizeCountryCode(match[1]);
+
+    if (code && getCountryNameFromCode(code)) return code;
+  }
+
+  return null;
+}
+
+function getCountryCodeFromName(value) {
+  const normalized = normalizeCountryText(value);
+
+  if (!normalized) return null;
+
+  const code = COUNTRY_NAME_TO_CODE.get(normalized);
+
+  return code ? normalizeCountryCode(code) : null;
+}
+
+function getCountryCodeFromText(value) {
+  const normalized = normalizeCountryText(value);
+
+  if (!normalized) return null;
+
+  const exact = COUNTRY_NAME_TO_CODE.get(normalized);
+
+  if (exact) return normalizeCountryCode(exact);
+
+  const padded = " " + normalized + " ";
+
+  for (const name of SORTED_COUNTRY_NAMES) {
+    if (padded.includes(" " + name + " ")) {
+      return normalizeCountryCode(COUNTRY_NAME_TO_CODE.get(name));
     }
   }
 
   return null;
 }
 
-/**
- * Получает русское название страны по ISO-коду.
- * Флаг для определения страны не используется.
- */
+function getCountryCodeFromCountryNameFields(config) {
+  const candidates = [
+    config?.countryName,
+    config?.country_name,
+    config?.country,
+    config?.server?.countryName,
+    config?.server?.country_name,
+    config?.server?.country,
+    config?.node?.countryName,
+    config?.node?.country_name,
+    config?.node?.country,
+    config?.metadata?.countryName,
+    config?.metadata?.country_name,
+    config?.metadata?.country,
+    config?.meta?.countryName,
+    config?.meta?.country_name,
+    config?.meta?.country
+  ];
+
+  for (const value of candidates) {
+    if (typeof value !== "string") continue;
+
+    const code =
+      normalizeCountryCode(value) ||
+      getCountryCodeFromName(value);
+
+    if (code && getCountryNameFromCode(code)) return code;
+  }
+
+  return null;
+}
+
 function getCountryNameFromCode(countryCode) {
   const code = normalizeCountryCode(countryCode);
 
-  if (!code || code === "EU" || code === "UN") {
-    return null;
+  if (!code) return null;
+  if (code === "XK") return "Косово";
+
+  const flag = getFlagFromCountryCode(code);
+
+  if (flag && COUNTRY_OVERRIDES[flag]) {
+    return COUNTRY_OVERRIDES[flag];
   }
 
-  if (code === "XK") {
-    return "Косово";
-  }
+  const name = REGION_NAMES_RU.of(code);
 
-  try {
-    const name = new Intl.DisplayNames(["ru"], {
-      type: "region"
-    }).of(code);
-
-    if (
-      !name ||
-      name === code ||
-      name === "Европейский союз" ||
-      name === "Организация Объединенных Наций" ||
-      name === "ООН"
-    ) {
-      return null;
-    }
-
-    return name;
-  } catch {
-    return null;
-  }
+  return !name || name === code || isIgnoredCountryName(name)
+    ? null
+    : name;
 }
 
-/**
- * Формирует флаг по ISO-коду страны.
- * Например: NL -> 🇳🇱, LU -> 🇱🇺.
- */
 function getFlagFromCountryCode(countryCode) {
   const code = normalizeCountryCode(countryCode);
 
-  if (!code || code === "EU" || code === "UN") {
-    return null;
-  }
+  if (!code) return null;
 
-  // UK иногда приходит вместо официального ISO-кода GB.
-  const normalizedCode = code === "UK" ? "GB" : code;
-
-  return [...normalizedCode]
+  return [...code]
     .map(char =>
       String.fromCodePoint(
         0x1F1E6 + char.charCodeAt(0) - 65
@@ -434,52 +627,68 @@ function getFlagFromCountryCode(countryCode) {
     .join("");
 }
 
-/**
- * Старый способ определения страны по флагу.
- * Оставляем его для совместимости с серверами,
- * у которых отсутствует countryCode.
- */
 function getCountryName(flag) {
-  if (!flag) return null;
-
-  if (flag === "🇪🇺" || flag === "🇺🇳") {
+  if (!flag || flag === "🇪🇺" || flag === "🇺🇳") {
     return null;
   }
 
-  if (COUNTRY_OVERRIDES[flag]) {
-    return COUNTRY_OVERRIDES[flag];
+  const code = countryCodeFromFlag(flag);
+
+  return code ? getCountryNameFromCode(code) : null;
+}
+
+function resolveCountry(config, remark) {
+  const explicitCode = getCountryCodeFromConfig(config);
+
+  if (explicitCode) {
+    const country = getCountryNameFromCode(explicitCode);
+    const flag = getFlagFromCountryCode(explicitCode);
+
+    if (country && flag) return { country, flag };
   }
 
-  try {
-    const code = [...flag]
-      .map(char =>
-        String.fromCharCode(
-          char.codePointAt(0) - 0x1F1E6 + 65
-        )
-      )
-      .join("");
+  const remarkCode = getCountryCodeFromRemark(remark);
 
-    if (code === "EU" || code === "UN") {
-      return null;
-    }
+  if (remarkCode) {
+    const country = getCountryNameFromCode(remarkCode);
+    const flag = getFlagFromCountryCode(remarkCode);
 
-    const name = new Intl.DisplayNames(["ru"], {
-      type: "region"
-    }).of(code);
-
-    if (
-      !name ||
-      name === "Европейский союз" ||
-      name === "Организация Объединенных Наций" ||
-      name === "ООН"
-    ) {
-      return null;
-    }
-
-    return name;
-  } catch {
-    return null;
+    if (country && flag) return { country, flag };
   }
+
+  const fieldNameCode = getCountryCodeFromCountryNameFields(config);
+
+  if (fieldNameCode) {
+    const country = getCountryNameFromCode(fieldNameCode);
+    const flag = getFlagFromCountryCode(fieldNameCode);
+
+    if (country && flag) return { country, flag };
+  }
+
+  const remarkNameCode = getCountryCodeFromText(remark);
+
+  if (remarkNameCode) {
+    const country = getCountryNameFromCode(remarkNameCode);
+    const flag = getFlagFromCountryCode(remarkNameCode);
+
+    if (country && flag) return { country, flag };
+  }
+
+  const sourceFlag = getFlagFromConfig(config, remark);
+  const flagCode = countryCodeFromFlag(sourceFlag);
+
+  if (flagCode) {
+    const country = getCountryNameFromCode(flagCode);
+    const flag = getFlagFromCountryCode(flagCode);
+
+    if (country && flag) return { country, flag };
+  }
+
+  const country = getCountryName(sourceFlag);
+
+  return country && sourceFlag
+    ? { country, flag: sourceFlag }
+    : null;
 }
 
 function makeAutoConfig(entries, remarks) {
@@ -606,16 +815,12 @@ function makeAutoConfig(entries, remarks) {
             "77.88.8.1"
           ],
           type: "field",
-          inboundTag: [
-            "dns-module"
-          ],
+          inboundTag: ["dns-module"],
           outboundTag: "direct"
         },
         {
           type: "field",
-          inboundTag: [
-            "dns-module"
-          ],
+          inboundTag: ["dns-module"],
           balancerTag: "MAIN_BALANCER"
         },
         {
@@ -625,9 +830,7 @@ function makeAutoConfig(entries, remarks) {
         },
         {
           type: "field",
-          protocol: [
-            "bittorrent"
-          ],
+          protocol: ["bittorrent"],
           outboundTag: "direct"
         },
         {
@@ -750,11 +953,7 @@ function makeAutoConfig(entries, remarks) {
         sniffing: {
           enabled: true,
           routeOnly: true,
-          destOverride: [
-            "http",
-            "tls",
-            "quic"
-          ]
+          destOverride: ["http", "tls", "quic"]
         }
       },
       {
@@ -768,11 +967,7 @@ function makeAutoConfig(entries, remarks) {
         sniffing: {
           enabled: true,
           routeOnly: true,
-          destOverride: [
-            "http",
-            "tls",
-            "quic"
-          ]
+          destOverride: ["http", "tls", "quic"]
         }
       }
     ],
@@ -825,24 +1020,13 @@ export function transformSubscription(input) {
 
   for (let index = 0; index < sourceConfigs.length; index++) {
     const config = sourceConfigs[index];
-
     const remark = getSourceRemark(config, index);
-    const sourceFlag = getFlagFromConfig(config, remark);
-    const countryCode = getCountryCodeFromConfig(config);
 
-    // countryCode имеет приоритет над флагом и названием в remarks.
-    const country = countryCode
-      ? getCountryNameFromCode(countryCode)
-      : getCountryName(sourceFlag);
+    const resolvedCountry = resolveCountry(config, remark);
+    const country = resolvedCountry?.country ?? null;
+    const flag = resolvedCountry?.flag ?? null;
 
-    // Если countryCode присутствует, используем соответствующий флаг.
-    const flag = countryCode
-      ? getFlagFromCountryCode(countryCode)
-      : sourceFlag;
-
-    if (!flag || !country) {
-      continue;
-    }
+    if (!flag || !country) continue;
 
     if (
       flag === "🇪🇺" ||
@@ -917,7 +1101,6 @@ export function transformSubscription(input) {
     ...input,
     configs: result,
     servers: result,
-
     stats: {
       total: result.length,
       countries: countryGroups.size,
