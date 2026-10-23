@@ -37,6 +37,7 @@ jobs:
 
           git add data/subscription.json
           git add public/subscription.json
+          git add public/sub.txt
           git add data/telegram-state.json
           git add package-lock.json
 
