@@ -185,6 +185,12 @@ await fs.mkdir(path.join(root, "public"), { recursive: true });
 await fs.writeFile(path.join(root, "data/subscription.json"), serialized, "utf8");
 await fs.writeFile(path.join(root, "public/subscription.json"), serialized, "utf8");
 
+/*
+ * /sub.txt intentionally serves the same JSON payload as /subscription.json.
+ * This changes the endpoint URL/headers, not the subscription's data format.
+ */
+await fs.writeFile(path.join(root, "public/sub.txt"), serialized, "utf8");
+
 await fs.writeFile(
   path.join(root, "data/telegram-state.json"),
   JSON.stringify(
@@ -212,6 +218,7 @@ console.log("");
 console.log("Files written:");
 console.log(" - data/subscription.json");
 console.log(" - public/subscription.json");
+console.log(" - public/sub.txt");
 console.log(" - data/telegram-state.json");
 console.log("");
 console.log("Done.");
