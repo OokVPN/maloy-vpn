@@ -26,6 +26,31 @@
           "value": "no-store"
         }
       ]
+    },
+    {
+      "source": "/sub.txt",
+      "headers": [
+        {
+          "key": "profile-title",
+          "value": "Subscription"
+        },
+        {
+          "key": "subscription-userinfo",
+          "value": "upload=0; download=1773000000000000000; total=858993459200; expire=0"
+        },
+        {
+            "key": "profile-update-interval",
+            "value": "12"
+        },
+        {
+          "key": "Content-Type",
+          "value": "application/json; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
     }
   ]
 }
