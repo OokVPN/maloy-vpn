@@ -4,13 +4,13 @@
   "telegramUrl": "https://jamshut.online/exec?url=http%3A%2F%2F77.110.104.181%3A5002%2Fsub%2FM0duMklELDE3OTI4NjAwMTgaxrhckDudI/auto",
   "actualSourceUrl": "https://jamshut.online/exec?url=http%3A%2F%2F77.110.104.181%3A5002%2Fsub%2FM0duMklELDE3OTI4NjAwMTgaxrhckDudI/auto",
   "finalSourceUrl": "https://jamshut.online/exec?url=http%3A%2F%2F77.110.104.181%3A5002%2Fsub%2FM0duMklELDE3OTI4NjAwMTgaxrhckDudI/auto",
-  "checkedAt": "2026-10-24T21:21:06.725Z",
+  "checkedAt": "2026-10-24T23:30:38.517Z",
   "configCount": 17,
-  "geoIPResolved": 54,
+  "geoIPResolved": 56,
   "stats": {
     "total": 17,
     "countries": 4,
     "normalOutbounds": 15,
-    "bypassOutbounds": 43
+    "bypassOutbounds": 47
   }
 }
