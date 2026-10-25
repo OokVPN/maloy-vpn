@@ -1,16 +1,16 @@
 {
   "channel": "https://t.me/happvpn",
-  "postId": "happvpn/4362",
-  "telegramUrl": "https://jamshut.online/exec?url=http%3A%2F%2F77.110.104.181%3A5002%2Fsub%2FM0duMklELDE3OTI4NjAwMTgaxrhckDudI/auto",
-  "actualSourceUrl": "https://jamshut.online/exec?url=http%3A%2F%2F77.110.104.181%3A5002%2Fsub%2FM0duMklELDE3OTI4NjAwMTgaxrhckDudI/auto",
-  "finalSourceUrl": "https://jamshut.online/exec?url=http%3A%2F%2F77.110.104.181%3A5002%2Fsub%2FM0duMklELDE3OTI4NjAwMTgaxrhckDudI/auto",
-  "checkedAt": "2026-10-25T01:27:26.304Z",
+  "postId": "happvpn/4363",
+  "telegramUrl": "https://jamshut.online/exec?url=http%3A%2F%2F77.110.104.181%3A5002%2Fsub%2FenNSVWhaLDE3OTI4OTY1ODglqx5lvSf2e/auto",
+  "actualSourceUrl": "https://jamshut.online/exec?url=http%3A%2F%2F77.110.104.181%3A5002%2Fsub%2FenNSVWhaLDE3OTI4OTY1ODglqx5lvSf2e/auto",
+  "finalSourceUrl": "https://jamshut.online/exec?url=http%3A%2F%2F77.110.104.181%3A5002%2Fsub%2FenNSVWhaLDE3OTI4OTY1ODglqx5lvSf2e/auto",
+  "checkedAt": "2026-10-25T06:27:52.590Z",
   "configCount": 17,
-  "geoIPResolved": 61,
+  "geoIPResolved": 49,
   "stats": {
     "total": 17,
     "countries": 4,
     "normalOutbounds": 15,
-    "bypassOutbounds": 49
+    "bypassOutbounds": 38
   }
 }
