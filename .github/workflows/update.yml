@@ -39,6 +39,7 @@ jobs:
           git add public/subscription.json
           git add public/sub.txt
           git add data/telegram-state.json
+          git add data/geo-cache.json
           git add package-lock.json
 
           if git diff --cached --quiet; then
