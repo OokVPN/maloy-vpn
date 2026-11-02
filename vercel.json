@@ -3,43 +3,6 @@
   "outputDirectory": "public",
   "headers": [
     {
-      "source": "/sub.txt",
-      "headers": [
-        {
-          "key": "profile-title",
-          "value": "Needful VPN 🍀"
-        },
-        {
-          "key": "announce",
-          "value": "🍀 Бесплатная подписка от Needful VPN!"
-        },
-        {
-          "key": "profile-update-interval",
-          "value": "12"
-        },
-        {
-          "key": "subscription-userinfo",
-          "value": "expire=3061353600"
-        },
-        {
-          "key": "support-url",
-          "value": "https://telegram.me/MaloyVpn67"
-        },
-        {
-          "key": "profile-web-page-url",
-          "value": "https://sub.maloyvpn.devs.surf/"
-        },
-        {
-          "key": "Content-Type",
-          "value": "application/json; charset=utf-8"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "no-store"
-        }
-      ]
-    },
-    {
       "source": "/sub/TWF0dmV5X2ZyaWVuZF8yLDE3Nzc0NTIyMzUxW0vSCkGyP",
       "headers": [
         {
