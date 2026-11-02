@@ -272,7 +272,7 @@ function extractProxyOutbounds(config) {
     .map(clone);
 }
 
-function getSourceRemark(config, index) {
+export function getSourceRemark(config, index) {
   return String(
     config?.remarks ??
     config?.remark ??
@@ -282,18 +282,38 @@ function getSourceRemark(config, index) {
   ).trim();
 }
 
-function isBypassConfig(remark) {
-  const text = remark.toLowerCase();
+/*
+ * "Обход глушилок" / LTE configs are not published any more: they are
+ * filtered out before geo checks and never reach the output.
+ */
+const BYPASS_WORDS = [
+  "обход",
+  "глушил",
+  "bypass",
+  "censor",
+  "anti-block",
+  "antiblock"
+];
 
-  return [
-    "lte",
-    "обход",
-    "глушил",
-    "bypass",
-    "censor",
-    "anti-block",
-    "antiblock"
-  ].some(word => text.includes(word));
+const LTE_RE = /(^|[^a-zа-яё0-9])lte($|[^a-zа-яё0-9])/i;
+
+export function isBypassConfig(remark) {
+  const text = String(remark ?? "").toLowerCase();
+
+  return LTE_RE.test(text) || BYPASS_WORDS.some(word => text.includes(word));
+}
+
+export function removeBypassConfigs(input) {
+  const configs = getConfigArray(input);
+  const kept = configs.filter(
+    (config, index) => !isBypassConfig(getSourceRemark(config, index))
+  );
+  const removed = configs.length - kept.length;
+
+  if (Array.isArray(input)) return { input: kept, removed };
+
+  const key = Array.isArray(input?.configs) ? "configs" : "servers";
+  return { input: { ...input, [key]: kept }, removed };
 }
 
 function getFlagFromConfig(config, remark) {
@@ -368,9 +388,18 @@ function countryCodeFromFlag(flag) {
   return code === "UK" ? "GB" : code;
 }
 
+// Retired ISO codes (East Germany, USSR, ...) share names with the current
+// countries and, being earlier in the alphabet, used to win the name lookup
+// ("Германия" -> DD -> 🇩🇩). They must never be produced.
+const OBSOLETE_COUNTRY_CODES = new Set([
+  "AN", "BU", "CS", "DD", "DY", "FX", "HV", "NH", "NT",
+  "RH", "SU", "TP", "VD", "YD", "YU", "ZR"
+]);
+
 for (let first = 65; first <= 90; first++) {
   for (let second = 65; second <= 90; second++) {
     const code = String.fromCharCode(first, second);
+    if (OBSOLETE_COUNTRY_CODES.has(code)) continue;
     const russianName = REGION_NAMES_RU.of(code);
     const englishName = REGION_NAMES_EN.of(code);
     if (
@@ -950,7 +979,7 @@ export function transformSubscription(input) {
   const sourceConfigs = getConfigArray(input);
 
   const normalEntries = [];
-  const bypassEntries = [];
+  let skippedBypass = 0;
   const countryGroups = new Map();
 
   for (let index = 0; index < sourceConfigs.length; index++) {
@@ -983,7 +1012,7 @@ export function transformSubscription(input) {
     };
 
     if (isBypassConfig(remark)) {
-      bypassEntries.push(entry);
+      skippedBypass++;
       continue;
     }
 
@@ -1003,15 +1032,6 @@ export function transformSubscription(input) {
       makeAutoConfig(
         normalEntries,
         "🇪🇺 АВТО №1 ⚡"
-      )
-    );
-  }
-
-  if (bypassEntries.length > 0) {
-    result.push(
-      makeAutoConfig(
-        bypassEntries,
-        "🇪🇺 АВТО №2 (Обход глушилок)"
       )
     );
   }
@@ -1043,7 +1063,7 @@ export function transformSubscription(input) {
       total: result.length,
       countries: countryGroups.size,
       normalOutbounds: normalEntries.length,
-      bypassOutbounds: bypassEntries.length
+      skippedBypass
     }
   };
 }
@@ -1068,6 +1088,6 @@ if (process.argv[1]?.endsWith("transform.js")) {
     `OK: ${result.stats.total} configs | ` +
     `${result.stats.countries} countries | ` +
     `${result.stats.normalOutbounds} normal | ` +
-    `${result.stats.bypassOutbounds} bypass`
+    `${result.stats.skippedBypass} bypass skipped`
   );
-        }
+}
