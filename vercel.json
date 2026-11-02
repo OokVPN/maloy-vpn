@@ -3,44 +3,31 @@
   "outputDirectory": "public",
   "headers": [
     {
-      "source": "/subscription.json",
-      "headers": [
-        {
-          "key": "profile-title",
-          "value": "UvoVPN"
-        },
-        {
-          "key": "announce",
-          "value": "Лучший VPN! Проверяйте даже если н/д"
-        },
-        {
-          "key": "subscription-userinfo",
-          "value": "upload=0; download=1773000000000000000; total=1; expire=0"
-        },
-        {
-          "key": "Content-Type",
-          "value": "application/json; charset=utf-8"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "no-store"
-        }
-      ]
-    },
-    {
       "source": "/sub.txt",
       "headers": [
         {
           "key": "profile-title",
-          "value": "Subscription"
+          "value": "Needful VPN 🍀"
+        },
+        {
+          "key": "announce",
+          "value": "🍀 Бесплатная подписка от Needful VPN!"
+        },
+        {
+          "key": "profile-update-interval",
+          "value": "12"
         },
         {
           "key": "subscription-userinfo",
-          "value": "upload=0; download=1773000000000000000; total=858993459200; expire=0"
+          "value": "expire=3061353600"
         },
         {
-            "key": "profile-update-interval",
-            "value": "12"
+          "key": "support-url",
+          "value": "https://sub.maloyvpn.devs.surf/"
+        },
+        {
+          "key": "profile-web-page-url",
+          "value": "https://telegram.me/MaloyVpn67"
         },
         {
           "key": "Content-Type",
@@ -51,6 +38,12 @@
           "value": "no-store"
         }
       ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/api/index"
     }
   ]
 }
