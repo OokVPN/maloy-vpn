@@ -2,7 +2,8 @@ import fs from "node:fs/promises";
 import path from "node:path";
 
 import { getLatestPost } from "./telegram.js";
-import { transformSubscription } from "./transform.js";
+import { transformSubscription, removeBypassConfigs } from "./transform.js";
+import { loadIndependentServers } from "./independent.js";
 import {
   lookupGeoIPCountries,
   applyGeoIPCountries
@@ -17,6 +18,13 @@ console.log("================================");
 console.log(" Telegram VPN Sync");
 console.log("================================");
 console.log(`Channel: ${settings.telegram.channel}`);
+
+const independent = await loadIndependentServers(root);
+
+console.log(
+  `Independent servers: ${independent.configs.length} ` +
+  `(${independent.files.length} files in servers/)`
+);
 
 const post = await getLatestPost(settings.telegram.channel);
 
@@ -65,7 +73,7 @@ async function download(url) {
   const response = await fetch(url, {
     redirect: "follow",
     headers: {
-      "user-agent": "Mozilla/5.0 (compatible; OokVPN-Sync/2.0)",
+      "user-agent": "Mozilla/5.0 (compatible; MaloyVPN-Sync/2.0)",
       accept: "*/*"
     }
   });
@@ -165,18 +173,31 @@ if (!parsed) {
   throw new Error("Could not find a downloadable source containing valid JSON.");
 }
 
-const input = parsed.data;
-console.log("");
-console.log("Processing VPN configs...");
-console.log("Looking up node locations with GeoIP...");
+const bypass = removeBypassConfigs(parsed.data);
+let input = bypass.input;
 
-const geoIPCountries = await lookupGeoIPCountries(input);
-applyGeoIPCountries(input, geoIPCountries);
+console.log("");
+console.log(`Bypass (LTE / обход глушилок) configs removed: ${bypass.removed}`);
+console.log("Processing VPN configs...");
+console.log("Detecting node countries...");
+
+const geo = await lookupGeoIPCountries(input, {
+  cacheFile: path.join(root, "data/geo-cache.json"),
+  overridesFile: path.join(root, "geo-overrides.json")
+});
+input = applyGeoIPCountries(input, geo);
 
 const result = transformSubscription(input);
+
+// Independent servers always go last, exactly as written in servers/*.json.
+const finalConfigs = [...result.configs, ...independent.configs];
 const output = Array.isArray(input)
-  ? result.configs
-  : { ...input, configs: result.configs };
+  ? finalConfigs
+  : {
+      ...input,
+      configs: finalConfigs,
+      ...(Array.isArray(input.servers) ? { servers: finalConfigs } : {})
+    };
 const serialized = JSON.stringify(output, null, 2) + "\n";
 
 await fs.mkdir(path.join(root, "data"), { recursive: true });
@@ -201,8 +222,11 @@ await fs.writeFile(
       actualSourceUrl: selectedDownload.url,
       finalSourceUrl: selectedDownload.finalUrl,
       checkedAt: new Date().toISOString(),
-      configCount: result.configs.length,
-      geoIPResolved: geoIPCountries.size,
+      configCount: finalConfigs.length,
+      independentServers: independent.configs.length,
+      bypassRemoved: bypass.removed,
+      geoIPResolved: geo.countries.size,
+      geoIPDead: geo.dead.size,
       stats: result.stats
     },
     null,
@@ -212,7 +236,7 @@ await fs.writeFile(
 );
 
 console.log("");
-console.log(`Configs processed: ${result.configs.length}`);
+console.log(`Configs processed: ${result.configs.length} + ${independent.configs.length} independent`);
 console.log("Remarks statistics:", result.stats);
 console.log("");
 console.log("Files written:");
