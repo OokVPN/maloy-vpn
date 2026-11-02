@@ -94,7 +94,7 @@ export async function getLatestPost(channel) {
       redirect: "follow",
       headers: {
         "user-agent":
-          "Mozilla/5.0 (compatible; OokVPN-Sync/2.0)"
+          "Mozilla/5.0 (compatible; MaloyVPN-Sync/2.0)"
       }
     }
   );
