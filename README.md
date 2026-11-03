@@ -4,7 +4,7 @@
 
 Источник:
 
-https://t.me/happvpn
+https://t.me/needfulsrc
 
 ## Ключевой принцип
 
