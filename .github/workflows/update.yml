@@ -4,6 +4,13 @@ on:
   workflow_dispatch:
   schedule:
     - cron: "*/15 * * * *"
+  push:
+    paths:
+      - "servers/**"
+
+concurrency:
+  group: update-vpn-subscription
+  cancel-in-progress: false
 
 permissions:
   contents: write
