@@ -1,19 +1,19 @@
 {
   "channel": "https://t.me/happvpn",
-  "postId": "happvpn/4402",
-  "telegramUrl": "https://walide.ru/exec?url=http%3A%2F%2F144.31.5.17%3A5051%2Fecnnqn%2Fsub%2Fc3pCUlFLLDE3OTM2Mzc5OTk1ultq--ziR/auto",
-  "actualSourceUrl": "https://walide.ru/exec?url=http%3A%2F%2F144.31.5.17%3A5051%2Fecnnqn%2Fsub%2Fc3pCUlFLLDE3OTM2Mzc5OTk1ultq--ziR/auto",
-  "finalSourceUrl": "https://walide.ru/exec?url=http%3A%2F%2F144.31.5.17%3A5051%2Fecnnqn%2Fsub%2Fc3pCUlFLLDE3OTM2Mzc5OTk1ultq--ziR/auto",
-  "checkedAt": "2026-11-03T11:28:13.100Z",
-  "configCount": 13,
+  "postId": "happvpn/4404",
+  "telegramUrl": "https://jamshut.online/exec?url=http%3A%2F%2F144.31.5.17%3A5051%2Fecnnqn%2Fsub%2FUkVTdHN0LDE3OTM3MTM5MjY-bHgDCg5IP/auto",
+  "actualSourceUrl": "https://jamshut.online/exec?url=http%3A%2F%2F144.31.5.17%3A5051%2Fecnnqn%2Fsub%2FUkVTdHN0LDE3OTM3MTM5MjY-bHgDCg5IP/auto",
+  "finalSourceUrl": "https://jamshut.online/exec?url=http%3A%2F%2F144.31.5.17%3A5051%2Fecnnqn%2Fsub%2FUkVTdHN0LDE3OTM3MTM5MjY-bHgDCg5IP/auto",
+  "checkedAt": "2026-11-03T15:41:42.772Z",
+  "configCount": 17,
   "independentServers": 1,
-  "bypassRemoved": 16,
+  "bypassRemoved": 11,
   "geoIPResolved": 11,
-  "geoIPDead": 4,
+  "geoIPDead": 0,
   "stats": {
-    "total": 12,
-    "countries": 3,
-    "normalOutbounds": 11,
+    "total": 16,
+    "countries": 6,
+    "normalOutbounds": 15,
     "skippedBypass": 0
   }
 }

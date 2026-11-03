@@ -226,7 +226,11 @@
             "proxy-8",
             "proxy-9",
             "proxy-10",
-            "proxy-11"
+            "proxy-11",
+            "proxy-12",
+            "proxy-13",
+            "proxy-14",
+            "proxy-15"
           ],
           "strategy": {
             "type": "leastLoad",
@@ -293,11 +297,11 @@
         "settings": {
           "vnext": [
             {
-              "address": "146.75.35.109",
+              "address": "146.75.35.118",
               "port": 443,
               "users": [
                 {
-                  "id": "570207c9-fad0-4be8-87a6-00e22f45d292",
+                  "id": "e09c213a-839c-4f39-947a-e4de73d57765",
                   "encryption": "none",
                   "flow": "",
                   "level": 8,
@@ -356,11 +360,11 @@
         "settings": {
           "vnext": [
             {
-              "address": "146.75.35.109",
+              "address": "146.75.35.118",
               "port": 443,
               "users": [
                 {
-                  "id": "570207c9-fad0-4be8-87a6-00e22f45d292",
+                  "id": "e09c213a-839c-4f39-947a-e4de73d57765",
                   "encryption": "none",
                   "flow": "",
                   "level": 8,
@@ -423,7 +427,7 @@
               "port": 443,
               "users": [
                 {
-                  "id": "570207c9-fad0-4be8-87a6-00e22f45d292",
+                  "id": "e09c213a-839c-4f39-947a-e4de73d57765",
                   "encryption": "none",
                   "flow": "",
                   "level": 8,
@@ -495,11 +499,11 @@
         "settings": {
           "vnext": [
             {
-              "address": "146.75.35.109",
+              "address": "146.75.35.118",
               "port": 443,
               "users": [
                 {
-                  "id": "570207c9-fad0-4be8-87a6-00e22f45d292",
+                  "id": "e09c213a-839c-4f39-947a-e4de73d57765",
                   "encryption": "none",
                   "flow": "",
                   "level": 8,
@@ -558,11 +562,11 @@
         "settings": {
           "vnext": [
             {
-              "address": "146.75.35.109",
+              "address": "146.75.35.118",
               "port": 443,
               "users": [
                 {
-                  "id": "570207c9-fad0-4be8-87a6-00e22f45d292",
+                  "id": "e09c213a-839c-4f39-947a-e4de73d57765",
                   "encryption": "none",
                   "flow": "",
                   "level": 8,
@@ -621,11 +625,74 @@
         "settings": {
           "vnext": [
             {
-              "address": "146.75.35.109",
+              "address": "146.75.35.118",
               "port": 443,
               "users": [
                 {
-                  "id": "570207c9-fad0-4be8-87a6-00e22f45d292",
+                  "id": "e09c213a-839c-4f39-947a-e4de73d57765",
+                  "encryption": "none",
+                  "flow": "",
+                  "level": 8,
+                  "security": "auto"
+                }
+              ]
+            }
+          ]
+        },
+        "streamSettings": {
+          "network": "xhttp",
+          "security": "tls",
+          "tlsSettings": {
+            "serverName": "accounts.fastly.com",
+            "fingerprint": "chrome",
+            "show": false,
+            "alpn": [
+              "h3"
+            ]
+          },
+          "xhttpSettings": {
+            "path": "/",
+            "host": "oh4.global.ssl.fastly.net",
+            "mode": "auto",
+            "extra": {
+              "scMaxEachPostBytes": "500000",
+              "scMaxConcurrentPosts": 100,
+              "scMinPostsIntervalMs": "60",
+              "xPaddingBytes": "100-1000",
+              "noGRPCHeader": true,
+              "xmux": {
+                "maxConnections": 16,
+                "cMaxReuseTimes": 0,
+                "hMaxRequestTimes": "600-900",
+                "hMaxReusableSecs": "1800-3000",
+                "hKeepAlivePeriod": 0
+              }
+            },
+            "scMaxEachPostBytes": "500000",
+            "scMaxConcurrentPosts": 100,
+            "scMinPostsIntervalMs": "60",
+            "xPaddingBytes": "100-1000",
+            "noGRPCHeader": true
+          }
+        }
+      },
+      {
+        "tag": "proxy-7",
+        "protocol": "vless",
+        "mux": {
+          "enabled": false,
+          "concurrency": -1,
+          "xudpConcurrency": 8,
+          "xudpProxyUDP443": ""
+        },
+        "settings": {
+          "vnext": [
+            {
+              "address": "146.75.35.118",
+              "port": 443,
+              "users": [
+                {
+                  "id": "e09c213a-839c-4f39-947a-e4de73d57765",
                   "encryption": "none",
                   "flow": "",
                   "level": 8,
@@ -673,7 +740,7 @@
         }
       },
       {
-        "tag": "proxy-7",
+        "tag": "proxy-8",
         "protocol": "vless",
         "mux": {
           "enabled": false,
@@ -684,11 +751,87 @@
         "settings": {
           "vnext": [
             {
-              "address": "146.75.35.109",
+              "address": "8.47.69.0",
               "port": 443,
               "users": [
                 {
-                  "id": "570207c9-fad0-4be8-87a6-00e22f45d292",
+                  "id": "e09c213a-839c-4f39-947a-e4de73d57765",
+                  "encryption": "none",
+                  "flow": "",
+                  "level": 8,
+                  "security": "auto"
+                }
+              ]
+            }
+          ]
+        },
+        "streamSettings": {
+          "network": "xhttp",
+          "security": "tls",
+          "tlsSettings": {
+            "serverName": "kan8.gaipidor.ru",
+            "fingerprint": "chrome",
+            "show": false,
+            "alpn": [
+              "h2"
+            ]
+          },
+          "xhttpSettings": {
+            "path": "/",
+            "host": "kan8.gaipidor.ru",
+            "mode": "auto",
+            "extra": {
+              "scMaxEachPostBytes": "500000",
+              "scMaxConcurrentPosts": 100,
+              "scMinPostsIntervalMs": "60",
+              "xPaddingBytes": "100-1000",
+              "noGRPCHeader": true,
+              "xmux": {
+                "maxConnections": 16,
+                "cMaxReuseTimes": 0,
+                "hMaxRequestTimes": "600-900",
+                "hMaxReusableSecs": "1800-3000",
+                "hKeepAlivePeriod": 0
+              }
+            },
+            "scMaxEachPostBytes": "500000",
+            "scMaxConcurrentPosts": 100,
+            "scMinPostsIntervalMs": "60",
+            "xPaddingBytes": "100-1000",
+            "noGRPCHeader": true
+          },
+          "finalmask": {
+            "tcp": [
+              {
+                "settings": {
+                  "delay": "1",
+                  "length": "3",
+                  "packets": "tlshello",
+                  "maxSplit": "5-10"
+                },
+                "type": "fragment"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "tag": "proxy-9",
+        "protocol": "vless",
+        "mux": {
+          "enabled": false,
+          "concurrency": -1,
+          "xudpConcurrency": 8,
+          "xudpProxyUDP443": ""
+        },
+        "settings": {
+          "vnext": [
+            {
+              "address": "146.75.35.118",
+              "port": 443,
+              "users": [
+                {
+                  "id": "e09c213a-839c-4f39-947a-e4de73d57765",
                   "encryption": "none",
                   "flow": "",
                   "level": 8,
@@ -736,7 +879,7 @@
         }
       },
       {
-        "tag": "proxy-8",
+        "tag": "proxy-10",
         "protocol": "vless",
         "mux": {
           "enabled": false,
@@ -747,11 +890,11 @@
         "settings": {
           "vnext": [
             {
-              "address": "146.75.35.109",
+              "address": "146.75.35.118",
               "port": 443,
               "users": [
                 {
-                  "id": "570207c9-fad0-4be8-87a6-00e22f45d292",
+                  "id": "e09c213a-839c-4f39-947a-e4de73d57765",
                   "encryption": "none",
                   "flow": "",
                   "level": 8,
@@ -799,7 +942,7 @@
         }
       },
       {
-        "tag": "proxy-9",
+        "tag": "proxy-11",
         "protocol": "vless",
         "mux": {
           "enabled": false,
@@ -810,11 +953,11 @@
         "settings": {
           "vnext": [
             {
-              "address": "146.75.35.109",
+              "address": "146.75.35.118",
               "port": 443,
               "users": [
                 {
-                  "id": "570207c9-fad0-4be8-87a6-00e22f45d292",
+                  "id": "e09c213a-839c-4f39-947a-e4de73d57765",
                   "encryption": "none",
                   "flow": "",
                   "level": 8,
@@ -862,7 +1005,7 @@
         }
       },
       {
-        "tag": "proxy-10",
+        "tag": "proxy-12",
         "protocol": "vless",
         "mux": {
           "enabled": false,
@@ -873,11 +1016,11 @@
         "settings": {
           "vnext": [
             {
-              "address": "146.75.35.109",
+              "address": "146.75.35.118",
               "port": 443,
               "users": [
                 {
-                  "id": "570207c9-fad0-4be8-87a6-00e22f45d292",
+                  "id": "e09c213a-839c-4f39-947a-e4de73d57765",
                   "encryption": "none",
                   "flow": "",
                   "level": 8,
@@ -925,7 +1068,7 @@
         }
       },
       {
-        "tag": "proxy-11",
+        "tag": "proxy-13",
         "protocol": "vless",
         "mux": {
           "enabled": false,
@@ -936,11 +1079,11 @@
         "settings": {
           "vnext": [
             {
-              "address": "146.75.35.109",
+              "address": "146.75.35.118",
               "port": 443,
               "users": [
                 {
-                  "id": "570207c9-fad0-4be8-87a6-00e22f45d292",
+                  "id": "e09c213a-839c-4f39-947a-e4de73d57765",
                   "encryption": "none",
                   "flow": "",
                   "level": 8,
@@ -988,6 +1131,114 @@
         }
       },
       {
+        "tag": "proxy-14",
+        "protocol": "vless",
+        "mux": {
+          "enabled": false,
+          "concurrency": -1,
+          "xudpConcurrency": 8,
+          "xudpProxyUDP443": ""
+        },
+        "settings": {
+          "vnext": [
+            {
+              "address": "146.75.35.118",
+              "port": 443,
+              "users": [
+                {
+                  "id": "e09c213a-839c-4f39-947a-e4de73d57765",
+                  "encryption": "none",
+                  "flow": "",
+                  "level": 8,
+                  "security": "auto"
+                }
+              ]
+            }
+          ]
+        },
+        "streamSettings": {
+          "network": "xhttp",
+          "security": "tls",
+          "tlsSettings": {
+            "serverName": "api.fastly.com",
+            "fingerprint": "chrome",
+            "show": false,
+            "alpn": [
+              "h3"
+            ]
+          },
+          "xhttpSettings": {
+            "path": "/",
+            "host": "ov1.global.ssl.fastly.net",
+            "mode": "auto",
+            "extra": {
+              "scMaxEachPostBytes": "500000",
+              "scMaxConcurrentPosts": 100,
+              "scMinPostsIntervalMs": "60",
+              "xPaddingBytes": "100-1000",
+              "noGRPCHeader": true,
+              "xmux": {
+                "maxConnections": 16,
+                "cMaxReuseTimes": 0,
+                "hMaxRequestTimes": "600-900",
+                "hMaxReusableSecs": "1800-3000",
+                "hKeepAlivePeriod": 0
+              }
+            },
+            "scMaxEachPostBytes": "500000",
+            "scMaxConcurrentPosts": 100,
+            "scMinPostsIntervalMs": "60",
+            "xPaddingBytes": "100-1000",
+            "noGRPCHeader": true
+          }
+        }
+      },
+      {
+        "tag": "proxy-15",
+        "protocol": "vless",
+        "mux": {
+          "enabled": false,
+          "concurrency": -1,
+          "xudpConcurrency": 8,
+          "xudpProxyUDP443": ""
+        },
+        "settings": {
+          "vnext": [
+            {
+              "address": "8.6.112.0",
+              "port": 443,
+              "users": [
+                {
+                  "id": "e09c213a-839c-4f39-947a-e4de73d57765",
+                  "encryption": "none",
+                  "flow": "",
+                  "level": 8,
+                  "security": "auto"
+                }
+              ]
+            }
+          ]
+        },
+        "streamSettings": {
+          "network": "ws",
+          "security": "tls",
+          "tlsSettings": {
+            "serverName": "polshaov.ochmaybrooooo.online",
+            "fingerprint": "chrome",
+            "show": false,
+            "alpn": [
+              "http/1.1"
+            ]
+          },
+          "wsSettings": {
+            "path": "/",
+            "headers": {
+              "Host": "polshaov.ochmaybrooooo.online"
+            }
+          }
+        }
+      },
+      {
         "tag": "block",
         "protocol": "blackhole"
       },
@@ -1019,10 +1270,137 @@
         "proxy-8",
         "proxy-9",
         "proxy-10",
-        "proxy-11"
+        "proxy-11",
+        "proxy-12",
+        "proxy-13",
+        "proxy-14",
+        "proxy-15"
       ]
     },
     "remarks": "🇪🇺 АВТО №1 ⚡"
+  },
+  {
+    "log": {
+      "access": "",
+      "error": "",
+      "loglevel": "warning"
+    },
+    "remarks": "🇬🇧 Великобритания №1",
+    "inbounds": [
+      {
+        "listen": "0.0.0.0",
+        "port": 10808,
+        "protocol": "socks",
+        "settings": {
+          "auth": "noauth",
+          "udp": true,
+          "allowTransparent": false
+        },
+        "sniffing": {
+          "enabled": true,
+          "destOverride": [
+            "http",
+            "tls"
+          ],
+          "routeOnly": false
+        },
+        "tag": "socks"
+      },
+      {
+        "listen": "0.0.0.0",
+        "port": 10809,
+        "protocol": "http",
+        "settings": {
+          "auth": "noauth",
+          "udp": true,
+          "allowTransparent": false
+        },
+        "sniffing": {
+          "enabled": true,
+          "destOverride": [
+            "http",
+            "tls"
+          ],
+          "routeOnly": false
+        },
+        "tag": "http"
+      }
+    ],
+    "outbounds": [
+      {
+        "tag": "proxy",
+        "protocol": "vless",
+        "mux": {
+          "enabled": false,
+          "concurrency": -1,
+          "xudpConcurrency": 8,
+          "xudpProxyUDP443": ""
+        },
+        "settings": {
+          "vnext": [
+            {
+              "address": "146.75.35.118",
+              "port": 443,
+              "users": [
+                {
+                  "id": "e09c213a-839c-4f39-947a-e4de73d57765",
+                  "encryption": "none",
+                  "flow": "",
+                  "level": 8,
+                  "security": "auto"
+                }
+              ]
+            }
+          ]
+        },
+        "streamSettings": {
+          "network": "xhttp",
+          "security": "tls",
+          "tlsSettings": {
+            "serverName": "accounts.fastly.com",
+            "fingerprint": "chrome",
+            "show": false,
+            "alpn": [
+              "h3"
+            ]
+          },
+          "xhttpSettings": {
+            "path": "/",
+            "host": "oh3.global.ssl.fastly.net",
+            "mode": "auto",
+            "extra": {
+              "scMaxEachPostBytes": "500000",
+              "scMaxConcurrentPosts": 100,
+              "scMinPostsIntervalMs": "60",
+              "xPaddingBytes": "100-1000",
+              "noGRPCHeader": true,
+              "xmux": {
+                "maxConnections": 16,
+                "cMaxReuseTimes": 0,
+                "hMaxRequestTimes": "600-900",
+                "hMaxReusableSecs": "1800-3000",
+                "hKeepAlivePeriod": 0
+              }
+            },
+            "scMaxEachPostBytes": "500000",
+            "scMaxConcurrentPosts": 100,
+            "scMinPostsIntervalMs": "60",
+            "xPaddingBytes": "100-1000",
+            "noGRPCHeader": true
+          }
+        }
+      }
+    ],
+    "dns": {
+      "servers": [
+        "1.1.1.1",
+        "8.8.8.8"
+      ]
+    },
+    "routing": {
+      "domainStrategy": "AsIs",
+      "rules": []
+    }
   },
   {
     "log": {
@@ -1084,11 +1462,147 @@
         "settings": {
           "vnext": [
             {
-              "address": "146.75.35.109",
+              "address": "8.47.69.0",
               "port": 443,
               "users": [
                 {
-                  "id": "570207c9-fad0-4be8-87a6-00e22f45d292",
+                  "id": "e09c213a-839c-4f39-947a-e4de73d57765",
+                  "encryption": "none",
+                  "flow": "",
+                  "level": 8,
+                  "security": "auto"
+                }
+              ]
+            }
+          ]
+        },
+        "streamSettings": {
+          "network": "xhttp",
+          "security": "tls",
+          "tlsSettings": {
+            "serverName": "kan8.gaipidor.ru",
+            "fingerprint": "chrome",
+            "show": false,
+            "alpn": [
+              "h2"
+            ]
+          },
+          "xhttpSettings": {
+            "path": "/",
+            "host": "kan8.gaipidor.ru",
+            "mode": "auto",
+            "extra": {
+              "scMaxEachPostBytes": "500000",
+              "scMaxConcurrentPosts": 100,
+              "scMinPostsIntervalMs": "60",
+              "xPaddingBytes": "100-1000",
+              "noGRPCHeader": true,
+              "xmux": {
+                "maxConnections": 16,
+                "cMaxReuseTimes": 0,
+                "hMaxRequestTimes": "600-900",
+                "hMaxReusableSecs": "1800-3000",
+                "hKeepAlivePeriod": 0
+              }
+            },
+            "scMaxEachPostBytes": "500000",
+            "scMaxConcurrentPosts": 100,
+            "scMinPostsIntervalMs": "60",
+            "xPaddingBytes": "100-1000",
+            "noGRPCHeader": true
+          },
+          "finalmask": {
+            "tcp": [
+              {
+                "settings": {
+                  "delay": "1",
+                  "length": "3",
+                  "packets": "tlshello",
+                  "maxSplit": "5-10"
+                },
+                "type": "fragment"
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "dns": {
+      "servers": [
+        "1.1.1.1",
+        "8.8.8.8"
+      ]
+    },
+    "routing": {
+      "domainStrategy": "AsIs",
+      "rules": []
+    }
+  },
+  {
+    "log": {
+      "access": "",
+      "error": "",
+      "loglevel": "warning"
+    },
+    "remarks": "🇩🇪 Германия №2",
+    "inbounds": [
+      {
+        "listen": "0.0.0.0",
+        "port": 10808,
+        "protocol": "socks",
+        "settings": {
+          "auth": "noauth",
+          "udp": true,
+          "allowTransparent": false
+        },
+        "sniffing": {
+          "enabled": true,
+          "destOverride": [
+            "http",
+            "tls"
+          ],
+          "routeOnly": false
+        },
+        "tag": "socks"
+      },
+      {
+        "listen": "0.0.0.0",
+        "port": 10809,
+        "protocol": "http",
+        "settings": {
+          "auth": "noauth",
+          "udp": true,
+          "allowTransparent": false
+        },
+        "sniffing": {
+          "enabled": true,
+          "destOverride": [
+            "http",
+            "tls"
+          ],
+          "routeOnly": false
+        },
+        "tag": "http"
+      }
+    ],
+    "outbounds": [
+      {
+        "tag": "proxy",
+        "protocol": "vless",
+        "mux": {
+          "enabled": false,
+          "concurrency": -1,
+          "xudpConcurrency": 8,
+          "xudpProxyUDP443": ""
+        },
+        "settings": {
+          "vnext": [
+            {
+              "address": "146.75.35.118",
+              "port": 443,
+              "users": [
+                {
+                  "id": "e09c213a-839c-4f39-947a-e4de73d57765",
                   "encryption": "none",
                   "flow": "",
                   "level": 8,
@@ -1208,11 +1722,11 @@
         "settings": {
           "vnext": [
             {
-              "address": "146.75.35.109",
+              "address": "146.75.35.118",
               "port": 443,
               "users": [
                 {
-                  "id": "570207c9-fad0-4be8-87a6-00e22f45d292",
+                  "id": "e09c213a-839c-4f39-947a-e4de73d57765",
                   "encryption": "none",
                   "flow": "",
                   "level": 8,
@@ -1336,7 +1850,7 @@
               "port": 443,
               "users": [
                 {
-                  "id": "570207c9-fad0-4be8-87a6-00e22f45d292",
+                  "id": "e09c213a-839c-4f39-947a-e4de73d57765",
                   "encryption": "none",
                   "flow": "",
                   "level": 8,
@@ -1469,11 +1983,11 @@
         "settings": {
           "vnext": [
             {
-              "address": "146.75.35.109",
+              "address": "146.75.35.118",
               "port": 443,
               "users": [
                 {
-                  "id": "570207c9-fad0-4be8-87a6-00e22f45d292",
+                  "id": "e09c213a-839c-4f39-947a-e4de73d57765",
                   "encryption": "none",
                   "flow": "",
                   "level": 8,
@@ -1593,11 +2107,11 @@
         "settings": {
           "vnext": [
             {
-              "address": "146.75.35.109",
+              "address": "146.75.35.118",
               "port": 443,
               "users": [
                 {
-                  "id": "570207c9-fad0-4be8-87a6-00e22f45d292",
+                  "id": "e09c213a-839c-4f39-947a-e4de73d57765",
                   "encryption": "none",
                   "flow": "",
                   "level": 8,
@@ -1663,6 +2177,129 @@
       "error": "",
       "loglevel": "warning"
     },
+    "remarks": "🇷🇺 Россия №1",
+    "inbounds": [
+      {
+        "listen": "0.0.0.0",
+        "port": 10808,
+        "protocol": "socks",
+        "settings": {
+          "auth": "noauth",
+          "udp": true,
+          "allowTransparent": false
+        },
+        "sniffing": {
+          "enabled": true,
+          "destOverride": [
+            "http",
+            "tls"
+          ],
+          "routeOnly": false
+        },
+        "tag": "socks"
+      },
+      {
+        "listen": "0.0.0.0",
+        "port": 10809,
+        "protocol": "http",
+        "settings": {
+          "auth": "noauth",
+          "udp": true,
+          "allowTransparent": false
+        },
+        "sniffing": {
+          "enabled": true,
+          "destOverride": [
+            "http",
+            "tls"
+          ],
+          "routeOnly": false
+        },
+        "tag": "http"
+      }
+    ],
+    "outbounds": [
+      {
+        "tag": "proxy",
+        "protocol": "vless",
+        "mux": {
+          "enabled": false,
+          "concurrency": -1,
+          "xudpConcurrency": 8,
+          "xudpProxyUDP443": ""
+        },
+        "settings": {
+          "vnext": [
+            {
+              "address": "146.75.35.118",
+              "port": 443,
+              "users": [
+                {
+                  "id": "e09c213a-839c-4f39-947a-e4de73d57765",
+                  "encryption": "none",
+                  "flow": "",
+                  "level": 8,
+                  "security": "auto"
+                }
+              ]
+            }
+          ]
+        },
+        "streamSettings": {
+          "network": "xhttp",
+          "security": "tls",
+          "tlsSettings": {
+            "serverName": "api.fastly.com",
+            "fingerprint": "chrome",
+            "show": false,
+            "alpn": [
+              "h3"
+            ]
+          },
+          "xhttpSettings": {
+            "path": "/",
+            "host": "ov1.global.ssl.fastly.net",
+            "mode": "auto",
+            "extra": {
+              "scMaxEachPostBytes": "500000",
+              "scMaxConcurrentPosts": 100,
+              "scMinPostsIntervalMs": "60",
+              "xPaddingBytes": "100-1000",
+              "noGRPCHeader": true,
+              "xmux": {
+                "maxConnections": 16,
+                "cMaxReuseTimes": 0,
+                "hMaxRequestTimes": "600-900",
+                "hMaxReusableSecs": "1800-3000",
+                "hKeepAlivePeriod": 0
+              }
+            },
+            "scMaxEachPostBytes": "500000",
+            "scMaxConcurrentPosts": 100,
+            "scMinPostsIntervalMs": "60",
+            "xPaddingBytes": "100-1000",
+            "noGRPCHeader": true
+          }
+        }
+      }
+    ],
+    "dns": {
+      "servers": [
+        "1.1.1.1",
+        "8.8.8.8"
+      ]
+    },
+    "routing": {
+      "domainStrategy": "AsIs",
+      "rules": []
+    }
+  },
+  {
+    "log": {
+      "access": "",
+      "error": "",
+      "loglevel": "warning"
+    },
     "remarks": "🇫🇷 Франция №1",
     "inbounds": [
       {
@@ -1717,11 +2354,11 @@
         "settings": {
           "vnext": [
             {
-              "address": "146.75.35.109",
+              "address": "146.75.35.118",
               "port": 443,
               "users": [
                 {
-                  "id": "570207c9-fad0-4be8-87a6-00e22f45d292",
+                  "id": "e09c213a-839c-4f39-947a-e4de73d57765",
                   "encryption": "none",
                   "flow": "",
                   "level": 8,
@@ -1744,7 +2381,7 @@
           },
           "xhttpSettings": {
             "path": "/",
-            "host": "oh3.global.ssl.fastly.net",
+            "host": "ovd5.global.ssl.fastly.net",
             "mode": "auto",
             "extra": {
               "scMaxEachPostBytes": "500000",
@@ -1841,11 +2478,11 @@
         "settings": {
           "vnext": [
             {
-              "address": "146.75.35.109",
+              "address": "146.75.35.118",
               "port": 443,
               "users": [
                 {
-                  "id": "570207c9-fad0-4be8-87a6-00e22f45d292",
+                  "id": "e09c213a-839c-4f39-947a-e4de73d57765",
                   "encryption": "none",
                   "flow": "",
                   "level": 8,
@@ -1868,7 +2505,7 @@
           },
           "xhttpSettings": {
             "path": "/",
-            "host": "ovd5.global.ssl.fastly.net",
+            "host": "oh6.global.ssl.fastly.net",
             "mode": "auto",
             "extra": {
               "scMaxEachPostBytes": "500000",
@@ -1965,11 +2602,11 @@
         "settings": {
           "vnext": [
             {
-              "address": "146.75.35.109",
+              "address": "146.75.35.118",
               "port": 443,
               "users": [
                 {
-                  "id": "570207c9-fad0-4be8-87a6-00e22f45d292",
+                  "id": "e09c213a-839c-4f39-947a-e4de73d57765",
                   "encryption": "none",
                   "flow": "",
                   "level": 8,
@@ -1992,7 +2629,7 @@
           },
           "xhttpSettings": {
             "path": "/",
-            "host": "oh6.global.ssl.fastly.net",
+            "host": "oh4.global.ssl.fastly.net",
             "mode": "auto",
             "extra": {
               "scMaxEachPostBytes": "500000",
@@ -2089,11 +2726,11 @@
         "settings": {
           "vnext": [
             {
-              "address": "146.75.35.109",
+              "address": "146.75.35.118",
               "port": 443,
               "users": [
                 {
-                  "id": "570207c9-fad0-4be8-87a6-00e22f45d292",
+                  "id": "e09c213a-839c-4f39-947a-e4de73d57765",
                   "encryption": "none",
                   "flow": "",
                   "level": 8,
@@ -2213,11 +2850,11 @@
         "settings": {
           "vnext": [
             {
-              "address": "146.75.35.109",
+              "address": "146.75.35.118",
               "port": 443,
               "users": [
                 {
-                  "id": "570207c9-fad0-4be8-87a6-00e22f45d292",
+                  "id": "e09c213a-839c-4f39-947a-e4de73d57765",
                   "encryption": "none",
                   "flow": "",
                   "level": 8,
@@ -2240,7 +2877,7 @@
           },
           "xhttpSettings": {
             "path": "/",
-            "host": "ovd11.global.ssl.fastly.net",
+            "host": "ovd12.global.ssl.fastly.net",
             "mode": "auto",
             "extra": {
               "scMaxEachPostBytes": "500000",
@@ -2337,11 +2974,117 @@
         "settings": {
           "vnext": [
             {
-              "address": "146.75.35.109",
+              "address": "8.6.112.0",
               "port": 443,
               "users": [
                 {
-                  "id": "570207c9-fad0-4be8-87a6-00e22f45d292",
+                  "id": "e09c213a-839c-4f39-947a-e4de73d57765",
+                  "encryption": "none",
+                  "flow": "",
+                  "level": 8,
+                  "security": "auto"
+                }
+              ]
+            }
+          ]
+        },
+        "streamSettings": {
+          "network": "ws",
+          "security": "tls",
+          "tlsSettings": {
+            "serverName": "polshaov.ochmaybrooooo.online",
+            "fingerprint": "chrome",
+            "show": false,
+            "alpn": [
+              "http/1.1"
+            ]
+          },
+          "wsSettings": {
+            "path": "/",
+            "headers": {
+              "Host": "polshaov.ochmaybrooooo.online"
+            }
+          }
+        }
+      }
+    ],
+    "dns": {
+      "servers": [
+        "1.1.1.1",
+        "8.8.8.8"
+      ]
+    },
+    "routing": {
+      "domainStrategy": "AsIs",
+      "rules": []
+    },
+    "countryCode": "FR"
+  },
+  {
+    "log": {
+      "access": "",
+      "error": "",
+      "loglevel": "warning"
+    },
+    "remarks": "🇸🇪 Швеция №1",
+    "inbounds": [
+      {
+        "listen": "0.0.0.0",
+        "port": 10808,
+        "protocol": "socks",
+        "settings": {
+          "auth": "noauth",
+          "udp": true,
+          "allowTransparent": false
+        },
+        "sniffing": {
+          "enabled": true,
+          "destOverride": [
+            "http",
+            "tls"
+          ],
+          "routeOnly": false
+        },
+        "tag": "socks"
+      },
+      {
+        "listen": "0.0.0.0",
+        "port": 10809,
+        "protocol": "http",
+        "settings": {
+          "auth": "noauth",
+          "udp": true,
+          "allowTransparent": false
+        },
+        "sniffing": {
+          "enabled": true,
+          "destOverride": [
+            "http",
+            "tls"
+          ],
+          "routeOnly": false
+        },
+        "tag": "http"
+      }
+    ],
+    "outbounds": [
+      {
+        "tag": "proxy",
+        "protocol": "vless",
+        "mux": {
+          "enabled": false,
+          "concurrency": -1,
+          "xudpConcurrency": 8,
+          "xudpProxyUDP443": ""
+        },
+        "settings": {
+          "vnext": [
+            {
+              "address": "146.75.35.118",
+              "port": 443,
+              "users": [
+                {
+                  "id": "e09c213a-839c-4f39-947a-e4de73d57765",
                   "encryption": "none",
                   "flow": "",
                   "level": 8,
@@ -2364,7 +3107,7 @@
           },
           "xhttpSettings": {
             "path": "/",
-            "host": "ovd12.global.ssl.fastly.net",
+            "host": "ovd11.global.ssl.fastly.net",
             "mode": "auto",
             "extra": {
               "scMaxEachPostBytes": "500000",
@@ -2398,8 +3141,7 @@
     "routing": {
       "domainStrategy": "AsIs",
       "rules": []
-    },
-    "countryCode": "FR"
+    }
   },
   {
     "log": {
