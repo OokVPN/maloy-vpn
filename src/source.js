@@ -4,43 +4,9 @@ import {
   extractJsonFromHtml,
   isHtmlText
 } from "./html-extract.js";
+import { configsFromLinks, extractLinks } from "./uri-configs.js";
 
 const REQUEST_TIMEOUT_MS = 30000;
-
-function cleanUrl(value) {
-  return String(value)
-    .trim()
-    .replace(/&amp;/gi, "&")
-    .replace(/[),.;!?]+$/g, "");
-}
-
-/** The link itself plus every URL nested inside it (proxy/wrapper links). */
-export function candidateUrls(sourceUrl) {
-  const urls = [sourceUrl];
-  const add = (value) => {
-    const cleaned = cleanUrl(value);
-    if (/^https?:\/\//i.test(cleaned) && !urls.includes(cleaned)) urls.push(cleaned);
-  };
-
-  try {
-    const url = new URL(sourceUrl);
-    for (const [, value] of url.searchParams) add(value);
-  } catch {
-    return urls;
-  }
-
-  let decoded = sourceUrl;
-  try { decoded = decodeURIComponent(sourceUrl); } catch {}
-
-  // Every "http(s)://" occurrence starts a candidate, including nested ones.
-  for (const match of decoded.matchAll(/https?:\/\//gi)) {
-    const rest = decoded.slice(match.index);
-    const end = rest.search(/[\s"'<>]/);
-    add(end === -1 ? rest : rest.slice(0, end));
-  }
-
-  return urls.filter(Boolean);
-}
 
 async function download(url) {
   console.log("");
@@ -112,60 +78,75 @@ export function parseJson(bytes) {
 /**
  * Downloads the subscription and returns { data, method, url, finalUrl }.
  *
- * 1. For every candidate URL, looks for a plain JSON answer.
+ * 1. Looks for a plain JSON answer.
  * 2. If the host only answers with an HTML page, takes the configs embedded
- *    in that page.
+ *    in it or builds them from the vless:// (vmess://, trojan://, ss://,
+ *    hysteria2://) links found in it.
  */
 export async function loadSubscription(sourceUrl) {
-  const candidates = candidateUrls(sourceUrl);
-
-  console.log("");
-  console.log("Candidate URLs:");
-  for (const candidate of candidates) console.log(` - ${candidate}`);
-
+  // Only the exact link from the post is used (no nested / "origin" URLs).
   const htmlPages = [];
 
-  for (const candidate of candidates) {
-    try {
-      const downloaded = await download(candidate);
-      const result = parseJson(downloaded.bytes);
+  try {
+    const downloaded = await download(sourceUrl);
+    const result = parseJson(downloaded.bytes);
 
-      if (result) {
-        console.log("");
-        console.log(`Successfully decoded JSON from: ${candidate}`);
-        console.log(`Decode method: ${result.method}`);
+    if (result) {
+      console.log("");
+      console.log("Successfully decoded JSON");
+      console.log(`Decode method: ${result.method}`);
 
-        return { ...result, url: downloaded.url, finalUrl: downloaded.finalUrl };
-      }
-
-      const text = downloaded.bytes.toString("utf8");
-
-      if (isHtmlText(text)) {
-        console.log(`Got an HTML page instead of JSON (${describeHtml(text)})`);
-        htmlPages.push({ ...downloaded, text });
-      } else {
-        console.log(`Not JSON from: ${candidate}`);
-      }
-    } catch (error) {
-      console.log(`Failed: ${candidate}`);
-      console.log(`Reason: ${error.message}`);
+      return { ...result, url: downloaded.url, finalUrl: downloaded.finalUrl };
     }
+
+    const text = downloaded.bytes.toString("utf8");
+
+    if (isHtmlText(text)) {
+      console.log(`Got an HTML page instead of JSON (${describeHtml(text)})`);
+      htmlPages.push({ ...downloaded, text });
+    } else {
+      console.log("The answer is not JSON.");
+    }
+  } catch (error) {
+    console.log(`Failed: ${sourceUrl}`);
+    console.log(`Reason: ${error.message}`);
   }
 
-  // Fallback: the page answers servers with HTML, but the configs are inside it.
+  // Fallback: the page answers servers with HTML, but the data is inside it.
   for (const page of htmlPages) {
-    const configs = collectConfigs(extractJsonFromHtml(page.text));
+    const embedded = collectConfigs(extractJsonFromHtml(page.text));
 
-    if (configs.length > 0) {
+    if (embedded.length > 0) {
       console.log("");
-      console.log(`Found ${configs.length} configs inside the HTML page: ${page.url}`);
+      console.log(`Found ${embedded.length} configs inside the HTML page`);
 
       return {
-        data: configs,
-        method: `HTML page -> ${configs.length} embedded configs`,
+        data: embedded,
+        method: `HTML page -> ${embedded.length} embedded configs`,
         url: page.url,
         finalUrl: page.finalUrl
       };
+    }
+
+    const links = extractLinks(page.text);
+
+    if (links.length > 0) {
+      const { configs, stats } = configsFromLinks(links);
+
+      console.log("");
+      console.log(
+        `Links in the HTML page: ${stats.links} ${JSON.stringify(stats.schemes)} -> ` +
+        `${stats.converted} configs (failed ${stats.failed}, duplicates ${stats.duplicates})`
+      );
+
+      if (configs.length > 0) {
+        return {
+          data: configs,
+          method: `HTML page -> ${configs.length} configs built from links`,
+          url: page.url,
+          finalUrl: page.finalUrl
+        };
+      }
     }
   }
 
