@@ -1,0 +1,98 @@
+{
+  "log": {
+    "access": "",
+    "error": "",
+    "loglevel": "warning"
+  },
+  "remarks": "🇩🇪 LTE | Обход №1",
+  "inbounds": [
+    {
+      "listen": "0.0.0.0",
+      "port": 10808,
+      "protocol": "socks",
+      "settings": {
+        "auth": "noauth",
+        "udp": true,
+        "allowTransparent": false
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "http",
+          "tls"
+        ],
+        "routeOnly": false
+      },
+      "tag": "socks"
+    },
+    {
+      "listen": "0.0.0.0",
+      "port": 10809,
+      "protocol": "http",
+      "settings": {
+        "auth": "noauth",
+        "udp": true,
+        "allowTransparent": false
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "http",
+          "tls"
+        ],
+        "routeOnly": false
+      },
+      "tag": "http"
+    }
+  ],
+  "outbounds": [
+    {
+      "tag": "proxy",
+      "protocol": "vless",
+      "settings": {
+        "vnext": [
+          {
+            "address": "mark-rubick.xrent.cloud",
+            "port": 10448,
+            "users": [
+              {
+                "id": "c515cd7e-f687-4530-a8fb-5e3f4fc2732c",
+                "encryption": "none",
+                "flow": "xtls-rprx-vision",
+                "level": 8,
+                "security": "auto"
+              }
+            ]
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "tcp",
+        "security": "reality",
+        "realitySettings": {
+          "serverName": "edge-node08.ethervds.com",
+          "fingerprint": "firefox",
+          "show": false,
+          "publicKey": "SJEbErtlRxBIwqIJYbttuF59vN6jbGt7SX2sRvZRS0Q",
+          "shortId": "d1520ca3e02cda34"
+        },
+        "tcpSettings": {
+          "header": {
+            "type": "none"
+          }
+        }
+      }
+    }
+  ],
+  "dns": {
+    "servers": [
+      "1.1.1.1",
+      "8.8.8.8"
+    ]
+  },
+  "routing": {
+    "domainStrategy": "AsIs",
+    "rules": []
+  },
+  "countryCode": "DE"
+}
