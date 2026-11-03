@@ -4,8 +4,7 @@
     "error": "",
     "loglevel": "warning"
   },
-  "remarks": "🇫🇮 LTE | Обход"
-  },
+  "remarks": "🇫🇮 LTE | Обход",
   "inbounds": [
     {
       "listen": "0.0.0.0",
