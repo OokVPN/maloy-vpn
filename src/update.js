@@ -51,6 +51,12 @@ input = applyGeoIPCountries(input, geo);
 
 const result = transformSubscription(input);
 
+if (result.configs.length === 0) {
+  throw new Error(
+    "No configs are left after processing the source; keeping the previous subscription."
+  );
+}
+
 // Independent servers always go last, exactly as written in servers/*.json.
 const finalConfigs = [...result.configs, ...independent.configs];
 const output = Array.isArray(input)
