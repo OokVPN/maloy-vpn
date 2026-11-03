@@ -4,16 +4,16 @@
   "telegramUrl": "https://walide.ru/exec?url=http%3A%2F%2F144.31.5.17%3A5051%2Fecnnqn%2Fsub%2Fc3pCUlFLLDE3OTM2Mzc5OTk1ultq--ziR/auto",
   "actualSourceUrl": "https://walide.ru/exec?url=http%3A%2F%2F144.31.5.17%3A5051%2Fecnnqn%2Fsub%2Fc3pCUlFLLDE3OTM2Mzc5OTk1ultq--ziR/auto",
   "finalSourceUrl": "https://walide.ru/exec?url=http%3A%2F%2F144.31.5.17%3A5051%2Fecnnqn%2Fsub%2Fc3pCUlFLLDE3OTM2Mzc5OTk1ultq--ziR/auto",
-  "checkedAt": "2026-11-02T21:14:59.370Z",
-  "configCount": 16,
+  "checkedAt": "2026-11-03T01:15:03.090Z",
+  "configCount": 14,
   "independentServers": 0,
-  "bypassRemoved": 16,
+  "bypassRemoved": 0,
   "geoIPResolved": 13,
-  "geoIPDead": 0,
+  "geoIPDead": 2,
   "stats": {
-    "total": 16,
-    "countries": 4,
-    "normalOutbounds": 15,
+    "total": 14,
+    "countries": 3,
+    "normalOutbounds": 13,
     "skippedBypass": 0
   }
 }
