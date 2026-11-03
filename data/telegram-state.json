@@ -2,18 +2,18 @@
   "channel": "https://t.me/needfulsrc",
   "postId": "needfulsrc/4",
   "telegramUrl": "https://p.kfwl.lol/ua=happ/os=android/h=e8bbd86c817be443/https://zolo.watervpn.ru/freesub",
-  "actualSourceUrl": "https://zolo.watervpn.ru/freesub",
-  "finalSourceUrl": "https://zolo.watervpn.ru/freesub",
-  "checkedAt": "2026-11-03T20:12:13.337Z",
-  "configCount": 1,
+  "actualSourceUrl": "https://p.kfwl.lol/ua=happ/os=android/h=e8bbd86c817be443/https://zolo.watervpn.ru/freesub",
+  "finalSourceUrl": "https://p.kfwl.lol/ua=happ/os=android/h=e8bbd86c817be443/https://zolo.watervpn.ru/freesub",
+  "checkedAt": "2026-11-03T20:43:10.888Z",
+  "configCount": 18,
   "independentServers": 1,
-  "bypassRemoved": 0,
-  "geoIPResolved": 0,
+  "bypassRemoved": 12,
+  "geoIPResolved": 9,
   "geoIPDead": 0,
   "stats": {
-    "total": 0,
-    "countries": 0,
-    "normalOutbounds": 0,
+    "total": 17,
+    "countries": 11,
+    "normalOutbounds": 16,
     "skippedBypass": 0
   }
 }
