@@ -224,7 +224,8 @@
             "proxy-6",
             "proxy-7",
             "proxy-8",
-            "proxy-9"
+            "proxy-9",
+            "proxy-10"
           ],
           "strategy": {
             "type": "leastLoad",
@@ -282,22 +283,16 @@
       {
         "tag": "proxy",
         "protocol": "vless",
-        "mux": {
-          "enabled": false,
-          "concurrency": -1,
-          "xudpConcurrency": 8,
-          "xudpProxyUDP443": ""
-        },
         "settings": {
           "vnext": [
             {
-              "address": "trrr-istrr-4.blook.network",
-              "port": 443,
+              "address": "217.19.122.170",
+              "port": 2096,
               "users": [
                 {
-                  "id": "130827f8-13b4-416f-8bff-fb8b636fe4e9",
+                  "id": "00d09ead-4080-4c39-a75d-be7dcabe77f4",
                   "encryption": "none",
-                  "flow": "",
+                  "flow": "xtls-rprx-vision",
                   "level": 8,
                   "security": "auto"
                 }
@@ -306,38 +301,98 @@
           ]
         },
         "streamSettings": {
-          "network": "xhttp",
-          "security": "tls",
-          "tlsSettings": {
-            "serverName": "trrr-istrr-4.blook.network",
+          "network": "tcp",
+          "security": "reality",
+          "realitySettings": {
+            "serverName": "bm8.hat.onl",
             "fingerprint": "firefox",
             "show": false,
-            "alpn": [
-              "h2",
-              "http/1.1"
-            ]
+            "publicKey": "26eRxOLahaWymVv1f33Za0Cw56VDNJ8BN2bEKznW-m4",
+            "shortId": "2a096f7b298d0aba"
           },
-          "xhttpSettings": {
-            "path": "/VLSpdG9k",
-            "host": "trrr-istrr-4.blook.network",
-            "mode": "stream-one",
-            "extra": {
-              "noGRPCHeader": true,
-              "scMaxEachPostBytes": 1000000,
-              "scMinPostsIntervalMs": 30,
-              "xPaddingBytes": "100-1000",
-              "xmux": {
-                "cMaxReuseTimes": "64-128",
-                "hMaxRequestTimes": "600-900",
-                "hMaxReusableSecs": "300-900",
-                "maxConnections": "3-6"
-              }
+          "tcpSettings": {
+            "header": {
+              "type": "none"
             }
           }
         }
       },
       {
         "tag": "proxy-2",
+        "protocol": "vless",
+        "settings": {
+          "vnext": [
+            {
+              "address": "cdndownloadlink.song69.fun",
+              "port": 2087,
+              "users": [
+                {
+                  "id": "92b79c22-f68b-4713-8b21-52f264cb92f5",
+                  "encryption": "none",
+                  "flow": "xtls-rprx-vision",
+                  "level": 8,
+                  "security": "auto"
+                }
+              ]
+            }
+          ]
+        },
+        "streamSettings": {
+          "network": "tcp",
+          "security": "reality",
+          "realitySettings": {
+            "serverName": "cdndownloadlink.song69.fun",
+            "fingerprint": "firefox",
+            "show": false,
+            "publicKey": "HRmmr0Ii4Tr9jPLwratvLhee3_VWFNK47T8AAo7kzww",
+            "shortId": ""
+          },
+          "tcpSettings": {
+            "header": {
+              "type": "none"
+            }
+          }
+        }
+      },
+      {
+        "tag": "proxy-3",
+        "protocol": "vless",
+        "settings": {
+          "vnext": [
+            {
+              "address": "ee.song69.fun",
+              "port": 2087,
+              "users": [
+                {
+                  "id": "92b79c22-f68b-4713-8b21-52f264cb92f5",
+                  "encryption": "none",
+                  "flow": "xtls-rprx-vision",
+                  "level": 8,
+                  "security": "auto"
+                }
+              ]
+            }
+          ]
+        },
+        "streamSettings": {
+          "network": "tcp",
+          "security": "reality",
+          "realitySettings": {
+            "serverName": "ee.song69.fun",
+            "fingerprint": "firefox",
+            "show": false,
+            "publicKey": "HRmmr0Ii4Tr9jPLwratvLhee3_VWFNK47T8AAo7kzww",
+            "shortId": ""
+          },
+          "tcpSettings": {
+            "header": {
+              "type": "none"
+            }
+          }
+        }
+      },
+      {
+        "tag": "proxy-4",
         "protocol": "vless",
         "mux": {
           "enabled": false,
@@ -387,44 +442,7 @@
         }
       },
       {
-        "tag": "proxy-3",
-        "protocol": "vless",
-        "settings": {
-          "vnext": [
-            {
-              "address": "217.19.122.170",
-              "port": 2096,
-              "users": [
-                {
-                  "id": "00d09ead-4080-4c39-a75d-be7dcabe77f4",
-                  "encryption": "none",
-                  "flow": "xtls-rprx-vision",
-                  "level": 8,
-                  "security": "auto"
-                }
-              ]
-            }
-          ]
-        },
-        "streamSettings": {
-          "network": "tcp",
-          "security": "reality",
-          "realitySettings": {
-            "serverName": "bm8.hat.onl",
-            "fingerprint": "firefox",
-            "show": false,
-            "publicKey": "26eRxOLahaWymVv1f33Za0Cw56VDNJ8BN2bEKznW-m4",
-            "shortId": "2a096f7b298d0aba"
-          },
-          "tcpSettings": {
-            "header": {
-              "type": "none"
-            }
-          }
-        }
-      },
-      {
-        "tag": "proxy-4",
+        "tag": "proxy-5",
         "protocol": "vless",
         "mux": {
           "enabled": false,
@@ -469,16 +487,16 @@
         }
       },
       {
-        "tag": "proxy-5",
+        "tag": "proxy-6",
         "protocol": "vless",
         "settings": {
           "vnext": [
             {
-              "address": "88.216.223.100",
+              "address": "pl1.song69.fun",
               "port": 443,
               "users": [
                 {
-                  "id": "3bb97d46-789b-4229-88f6-9beb222a4137",
+                  "id": "92b79c22-f68b-4713-8b21-52f264cb92f5",
                   "encryption": "none",
                   "flow": "xtls-rprx-vision",
                   "level": 8,
@@ -492,73 +510,15 @@
           "network": "tcp",
           "security": "reality",
           "realitySettings": {
-            "serverName": "smart.bachidze.com",
+            "serverName": "pl1.song69.fun",
             "fingerprint": "firefox",
             "show": false,
-            "publicKey": "vzRgIP8Mvd9V6krwKxw5EwwzvC4uiaW3wo0Y2ri2_Wc",
-            "shortId": ""
+            "publicKey": "5H_MmyfvF4SkwS84wTbLmtcZDecXJIJtZ3uisiKQpSM",
+            "shortId": "0c774b50"
           },
           "tcpSettings": {
             "header": {
               "type": "none"
-            }
-          }
-        }
-      },
-      {
-        "tag": "proxy-6",
-        "protocol": "vless",
-        "mux": {
-          "enabled": false,
-          "concurrency": -1,
-          "xudpConcurrency": 8,
-          "xudpProxyUDP443": ""
-        },
-        "settings": {
-          "vnext": [
-            {
-              "address": "fr.song69.fun",
-              "port": 443,
-              "users": [
-                {
-                  "id": "92b79c22-f68b-4713-8b21-52f264cb92f5",
-                  "encryption": "none",
-                  "flow": "",
-                  "level": 8,
-                  "security": "auto"
-                }
-              ]
-            }
-          ]
-        },
-        "streamSettings": {
-          "network": "xhttp",
-          "security": "tls",
-          "tlsSettings": {
-            "serverName": "fr.song69.fun",
-            "fingerprint": "edge",
-            "show": false,
-            "alpn": [
-              "h2",
-              "http/1.1"
-            ]
-          },
-          "xhttpSettings": {
-            "path": "/api/443/download/",
-            "host": "fr.song69.fun",
-            "mode": "auto",
-            "extra": {
-              "mode": "stream-one",
-              "xmux": {
-                "cMaxReuseTimes": 0,
-                "maxConcurrency": "16-32",
-                "hKeepAlivePeriod": 0,
-                "hMaxRequestTimes": "600-900",
-                "hMaxReusableSecs": "1800-3000"
-              },
-              "xPaddingBytes": "100-1000",
-              "xPaddingHeader": "X-Cache",
-              "xPaddingMethod": "tokenish"
             }
           }
         }
@@ -569,11 +529,11 @@
         "settings": {
           "vnext": [
             {
-              "address": "ee.song69.fun",
-              "port": 2087,
+              "address": "cdn.izzzyvpn.space",
+              "port": 443,
               "users": [
                 {
-                  "id": "92b79c22-f68b-4713-8b21-52f264cb92f5",
+                  "id": "e7ee38d7-f8ad-4d14-a491-2d9e18011845",
                   "encryption": "none",
                   "flow": "xtls-rprx-vision",
                   "level": 8,
@@ -587,11 +547,11 @@
           "network": "tcp",
           "security": "reality",
           "realitySettings": {
-            "serverName": "ee.song69.fun",
+            "serverName": "cdn.izzzyvpn.space",
             "fingerprint": "firefox",
             "show": false,
-            "publicKey": "HRmmr0Ii4Tr9jPLwratvLhee3_VWFNK47T8AAo7kzww",
-            "shortId": ""
+            "publicKey": "v--0dXOWcnzpJvl_6qkbWTCRLg-eWdJ6WxJsYtj9WQY",
+            "shortId": "f7fdf037537b8c38"
           },
           "tcpSettings": {
             "header": {
@@ -640,16 +600,22 @@
       {
         "tag": "proxy-9",
         "protocol": "vless",
+        "mux": {
+          "enabled": false,
+          "concurrency": -1,
+          "xudpConcurrency": 8,
+          "xudpProxyUDP443": ""
+        },
         "settings": {
           "vnext": [
             {
-              "address": "cdn.izzzyvpn.space",
+              "address": "36a466g.fi1.h1clayd.click",
               "port": 443,
               "users": [
                 {
-                  "id": "e7ee38d7-f8ad-4d14-a491-2d9e18011845",
+                  "id": "9a0e84f8-4b58-477f-99da-5fac5a2e58e8",
                   "encryption": "none",
-                  "flow": "xtls-rprx-vision",
+                  "flow": "",
                   "level": 8,
                   "security": "auto"
                 }
@@ -658,18 +624,58 @@
           ]
         },
         "streamSettings": {
-          "network": "tcp",
+          "network": "grpc",
           "security": "reality",
           "realitySettings": {
-            "serverName": "cdn.izzzyvpn.space",
-            "fingerprint": "firefox",
+            "serverName": "36a466g.fi1.h1clayd.click",
+            "fingerprint": "random",
             "show": false,
-            "publicKey": "v--0dXOWcnzpJvl_6qkbWTCRLg-eWdJ6WxJsYtj9WQY",
-            "shortId": "f7fdf037537b8c38"
+            "publicKey": "pAgrBKJCmuSJHIzYkEJTqsOBOVBK_DMtEqFPo-PaTkg",
+            "shortId": "b3c9d0c6bdd114a6"
           },
-          "tcpSettings": {
-            "header": {
-              "type": "none"
+          "grpcSettings": {
+            "serviceName": "0adb9638509b"
+          }
+        }
+      },
+      {
+        "tag": "proxy-10",
+        "protocol": "vless",
+        "mux": {
+          "enabled": false,
+          "concurrency": -1,
+          "xudpConcurrency": 8,
+          "xudpProxyUDP443": ""
+        },
+        "settings": {
+          "vnext": [
+            {
+              "address": "217.19.122.156",
+              "port": 443,
+              "users": [
+                {
+                  "id": "7955bf18-35c4-412d-aabd-c0b36c793063",
+                  "encryption": "none",
+                  "flow": "",
+                  "level": 8,
+                  "security": "auto"
+                }
+              ]
+            }
+          ]
+        },
+        "streamSettings": {
+          "network": "ws",
+          "security": "tls",
+          "tlsSettings": {
+            "serverName": "z1q3pv4g78.rucdncomp.pro",
+            "fingerprint": "firefox",
+            "show": false
+          },
+          "wsSettings": {
+            "path": "/useraction/events/b892639b7195/",
+            "headers": {
+              "Host": "z1q3pv4g78.rucdncomp.pro"
             }
           }
         }
@@ -704,7 +710,8 @@
         "proxy-6",
         "proxy-7",
         "proxy-8",
-        "proxy-9"
+        "proxy-9",
+        "proxy-10"
       ]
     },
     "remarks": "🇪🇺 АВТО №1 ⚡"
@@ -715,7 +722,408 @@
       "error": "",
       "loglevel": "warning"
     },
+    "remarks": "🇩🇪 Германия №1",
+    "inbounds": [
+      {
+        "listen": "0.0.0.0",
+        "port": 10808,
+        "protocol": "socks",
+        "settings": {
+          "auth": "noauth",
+          "udp": true,
+          "allowTransparent": false
+        },
+        "sniffing": {
+          "enabled": true,
+          "destOverride": [
+            "http",
+            "tls"
+          ],
+          "routeOnly": false
+        },
+        "tag": "socks"
+      },
+      {
+        "listen": "0.0.0.0",
+        "port": 10809,
+        "protocol": "http",
+        "settings": {
+          "auth": "noauth",
+          "udp": true,
+          "allowTransparent": false
+        },
+        "sniffing": {
+          "enabled": true,
+          "destOverride": [
+            "http",
+            "tls"
+          ],
+          "routeOnly": false
+        },
+        "tag": "http"
+      }
+    ],
+    "outbounds": [
+      {
+        "tag": "proxy",
+        "protocol": "vless",
+        "mux": {
+          "enabled": false,
+          "concurrency": -1,
+          "xudpConcurrency": 8,
+          "xudpProxyUDP443": ""
+        },
+        "settings": {
+          "vnext": [
+            {
+              "address": "36a466g.fi1.h1clayd.click",
+              "port": 443,
+              "users": [
+                {
+                  "id": "9a0e84f8-4b58-477f-99da-5fac5a2e58e8",
+                  "encryption": "none",
+                  "flow": "",
+                  "level": 8,
+                  "security": "auto"
+                }
+              ]
+            }
+          ]
+        },
+        "streamSettings": {
+          "network": "grpc",
+          "security": "reality",
+          "realitySettings": {
+            "serverName": "36a466g.fi1.h1clayd.click",
+            "fingerprint": "random",
+            "show": false,
+            "publicKey": "pAgrBKJCmuSJHIzYkEJTqsOBOVBK_DMtEqFPo-PaTkg",
+            "shortId": "b3c9d0c6bdd114a6"
+          },
+          "grpcSettings": {
+            "serviceName": "0adb9638509b"
+          }
+        }
+      }
+    ],
+    "dns": {
+      "servers": [
+        "1.1.1.1",
+        "8.8.8.8"
+      ]
+    },
+    "routing": {
+      "domainStrategy": "AsIs",
+      "rules": []
+    },
+    "countryCode": "DE"
+  },
+  {
+    "log": {
+      "access": "",
+      "error": "",
+      "loglevel": "warning"
+    },
+    "remarks": "🇩🇪 Германия №2",
+    "inbounds": [
+      {
+        "listen": "0.0.0.0",
+        "port": 10808,
+        "protocol": "socks",
+        "settings": {
+          "auth": "noauth",
+          "udp": true,
+          "allowTransparent": false
+        },
+        "sniffing": {
+          "enabled": true,
+          "destOverride": [
+            "http",
+            "tls"
+          ],
+          "routeOnly": false
+        },
+        "tag": "socks"
+      },
+      {
+        "listen": "0.0.0.0",
+        "port": 10809,
+        "protocol": "http",
+        "settings": {
+          "auth": "noauth",
+          "udp": true,
+          "allowTransparent": false
+        },
+        "sniffing": {
+          "enabled": true,
+          "destOverride": [
+            "http",
+            "tls"
+          ],
+          "routeOnly": false
+        },
+        "tag": "http"
+      }
+    ],
+    "outbounds": [
+      {
+        "tag": "proxy",
+        "protocol": "vless",
+        "mux": {
+          "enabled": false,
+          "concurrency": -1,
+          "xudpConcurrency": 8,
+          "xudpProxyUDP443": ""
+        },
+        "settings": {
+          "vnext": [
+            {
+              "address": "217.19.122.156",
+              "port": 443,
+              "users": [
+                {
+                  "id": "7955bf18-35c4-412d-aabd-c0b36c793063",
+                  "encryption": "none",
+                  "flow": "",
+                  "level": 8,
+                  "security": "auto"
+                }
+              ]
+            }
+          ]
+        },
+        "streamSettings": {
+          "network": "ws",
+          "security": "tls",
+          "tlsSettings": {
+            "serverName": "z1q3pv4g78.rucdncomp.pro",
+            "fingerprint": "firefox",
+            "show": false
+          },
+          "wsSettings": {
+            "path": "/useraction/events/b892639b7195/",
+            "headers": {
+              "Host": "z1q3pv4g78.rucdncomp.pro"
+            }
+          }
+        }
+      }
+    ],
+    "dns": {
+      "servers": [
+        "1.1.1.1",
+        "8.8.8.8"
+      ]
+    },
+    "routing": {
+      "domainStrategy": "AsIs",
+      "rules": []
+    },
+    "countryCode": "DE"
+  },
+  {
+    "log": {
+      "access": "",
+      "error": "",
+      "loglevel": "warning"
+    },
+    "remarks": "🇱🇹 Литва №1",
+    "inbounds": [
+      {
+        "listen": "0.0.0.0",
+        "port": 10808,
+        "protocol": "socks",
+        "settings": {
+          "auth": "noauth",
+          "udp": true,
+          "allowTransparent": false
+        },
+        "sniffing": {
+          "enabled": true,
+          "destOverride": [
+            "http",
+            "tls"
+          ],
+          "routeOnly": false
+        },
+        "tag": "socks"
+      },
+      {
+        "listen": "0.0.0.0",
+        "port": 10809,
+        "protocol": "http",
+        "settings": {
+          "auth": "noauth",
+          "udp": true,
+          "allowTransparent": false
+        },
+        "sniffing": {
+          "enabled": true,
+          "destOverride": [
+            "http",
+            "tls"
+          ],
+          "routeOnly": false
+        },
+        "tag": "http"
+      }
+    ],
+    "outbounds": [
+      {
+        "tag": "proxy",
+        "protocol": "vless",
+        "settings": {
+          "vnext": [
+            {
+              "address": "cdndownloadlink.song69.fun",
+              "port": 2087,
+              "users": [
+                {
+                  "id": "92b79c22-f68b-4713-8b21-52f264cb92f5",
+                  "encryption": "none",
+                  "flow": "xtls-rprx-vision",
+                  "level": 8,
+                  "security": "auto"
+                }
+              ]
+            }
+          ]
+        },
+        "streamSettings": {
+          "network": "tcp",
+          "security": "reality",
+          "realitySettings": {
+            "serverName": "cdndownloadlink.song69.fun",
+            "fingerprint": "firefox",
+            "show": false,
+            "publicKey": "HRmmr0Ii4Tr9jPLwratvLhee3_VWFNK47T8AAo7kzww",
+            "shortId": ""
+          },
+          "tcpSettings": {
+            "header": {
+              "type": "none"
+            }
+          }
+        }
+      }
+    ],
+    "dns": {
+      "servers": [
+        "1.1.1.1",
+        "8.8.8.8"
+      ]
+    },
+    "routing": {
+      "domainStrategy": "AsIs",
+      "rules": []
+    },
+    "countryCode": "LT"
+  },
+  {
+    "log": {
+      "access": "",
+      "error": "",
+      "loglevel": "warning"
+    },
     "remarks": "🇵🇱 Польша №1",
+    "inbounds": [
+      {
+        "listen": "0.0.0.0",
+        "port": 10808,
+        "protocol": "socks",
+        "settings": {
+          "auth": "noauth",
+          "udp": true,
+          "allowTransparent": false
+        },
+        "sniffing": {
+          "enabled": true,
+          "destOverride": [
+            "http",
+            "tls"
+          ],
+          "routeOnly": false
+        },
+        "tag": "socks"
+      },
+      {
+        "listen": "0.0.0.0",
+        "port": 10809,
+        "protocol": "http",
+        "settings": {
+          "auth": "noauth",
+          "udp": true,
+          "allowTransparent": false
+        },
+        "sniffing": {
+          "enabled": true,
+          "destOverride": [
+            "http",
+            "tls"
+          ],
+          "routeOnly": false
+        },
+        "tag": "http"
+      }
+    ],
+    "outbounds": [
+      {
+        "tag": "proxy",
+        "protocol": "vless",
+        "settings": {
+          "vnext": [
+            {
+              "address": "217.19.122.170",
+              "port": 2096,
+              "users": [
+                {
+                  "id": "00d09ead-4080-4c39-a75d-be7dcabe77f4",
+                  "encryption": "none",
+                  "flow": "xtls-rprx-vision",
+                  "level": 8,
+                  "security": "auto"
+                }
+              ]
+            }
+          ]
+        },
+        "streamSettings": {
+          "network": "tcp",
+          "security": "reality",
+          "realitySettings": {
+            "serverName": "bm8.hat.onl",
+            "fingerprint": "firefox",
+            "show": false,
+            "publicKey": "26eRxOLahaWymVv1f33Za0Cw56VDNJ8BN2bEKznW-m4",
+            "shortId": "2a096f7b298d0aba"
+          },
+          "tcpSettings": {
+            "header": {
+              "type": "none"
+            }
+          }
+        }
+      }
+    ],
+    "dns": {
+      "servers": [
+        "1.1.1.1",
+        "8.8.8.8"
+      ]
+    },
+    "routing": {
+      "domainStrategy": "AsIs",
+      "rules": []
+    },
+    "countryCode": "PL"
+  },
+  {
+    "log": {
+      "access": "",
+      "error": "",
+      "loglevel": "warning"
+    },
+    "remarks": "🇵🇱 Польша №2",
     "inbounds": [
       {
         "listen": "0.0.0.0",
@@ -826,7 +1234,7 @@
       "error": "",
       "loglevel": "warning"
     },
-    "remarks": "🇵🇱 Польша №2",
+    "remarks": "🇵🇱 Польша №3",
     "inbounds": [
       {
         "listen": "0.0.0.0",
@@ -874,11 +1282,11 @@
         "settings": {
           "vnext": [
             {
-              "address": "217.19.122.170",
-              "port": 2096,
+              "address": "pl1.song69.fun",
+              "port": 443,
               "users": [
                 {
-                  "id": "00d09ead-4080-4c39-a75d-be7dcabe77f4",
+                  "id": "92b79c22-f68b-4713-8b21-52f264cb92f5",
                   "encryption": "none",
                   "flow": "xtls-rprx-vision",
                   "level": 8,
@@ -892,11 +1300,11 @@
           "network": "tcp",
           "security": "reality",
           "realitySettings": {
-            "serverName": "bm8.hat.onl",
+            "serverName": "pl1.song69.fun",
             "fingerprint": "firefox",
             "show": false,
-            "publicKey": "26eRxOLahaWymVv1f33Za0Cw56VDNJ8BN2bEKznW-m4",
-            "shortId": "2a096f7b298d0aba"
+            "publicKey": "5H_MmyfvF4SkwS84wTbLmtcZDecXJIJtZ3uisiKQpSM",
+            "shortId": "0c774b50"
           },
           "tcpSettings": {
             "header": {
@@ -1030,244 +1438,7 @@
       "error": "",
       "loglevel": "warning"
     },
-    "remarks": "🇹🇷 Турция №1",
-    "inbounds": [
-      {
-        "listen": "0.0.0.0",
-        "port": 10808,
-        "protocol": "socks",
-        "settings": {
-          "auth": "noauth",
-          "udp": true,
-          "allowTransparent": false
-        },
-        "sniffing": {
-          "enabled": true,
-          "destOverride": [
-            "http",
-            "tls"
-          ],
-          "routeOnly": false
-        },
-        "tag": "socks"
-      },
-      {
-        "listen": "0.0.0.0",
-        "port": 10809,
-        "protocol": "http",
-        "settings": {
-          "auth": "noauth",
-          "udp": true,
-          "allowTransparent": false
-        },
-        "sniffing": {
-          "enabled": true,
-          "destOverride": [
-            "http",
-            "tls"
-          ],
-          "routeOnly": false
-        },
-        "tag": "http"
-      }
-    ],
-    "outbounds": [
-      {
-        "tag": "proxy",
-        "protocol": "vless",
-        "mux": {
-          "enabled": false,
-          "concurrency": -1,
-          "xudpConcurrency": 8,
-          "xudpProxyUDP443": ""
-        },
-        "settings": {
-          "vnext": [
-            {
-              "address": "trrr-istrr-4.blook.network",
-              "port": 443,
-              "users": [
-                {
-                  "id": "130827f8-13b4-416f-8bff-fb8b636fe4e9",
-                  "encryption": "none",
-                  "flow": "",
-                  "level": 8,
-                  "security": "auto"
-                }
-              ]
-            }
-          ]
-        },
-        "streamSettings": {
-          "network": "xhttp",
-          "security": "tls",
-          "tlsSettings": {
-            "serverName": "trrr-istrr-4.blook.network",
-            "fingerprint": "firefox",
-            "show": false,
-            "alpn": [
-              "h2",
-              "http/1.1"
-            ]
-          },
-          "xhttpSettings": {
-            "path": "/VLSpdG9k",
-            "host": "trrr-istrr-4.blook.network",
-            "mode": "stream-one",
-            "extra": {
-              "noGRPCHeader": true,
-              "scMaxEachPostBytes": 1000000,
-              "scMinPostsIntervalMs": 30,
-              "xPaddingBytes": "100-1000",
-              "xmux": {
-                "cMaxReuseTimes": "64-128",
-                "hMaxRequestTimes": "600-900",
-                "hMaxReusableSecs": "300-900",
-                "maxConnections": "3-6"
-              }
-            }
-          }
-        }
-      }
-    ],
-    "dns": {
-      "servers": [
-        "1.1.1.1",
-        "8.8.8.8"
-      ]
-    },
-    "routing": {
-      "domainStrategy": "AsIs",
-      "rules": []
-    },
-    "countryCode": "TR"
-  },
-  {
-    "log": {
-      "access": "",
-      "error": "",
-      "loglevel": "warning"
-    },
     "remarks": "🇫🇷 Франция №1",
-    "inbounds": [
-      {
-        "listen": "0.0.0.0",
-        "port": 10808,
-        "protocol": "socks",
-        "settings": {
-          "auth": "noauth",
-          "udp": true,
-          "allowTransparent": false
-        },
-        "sniffing": {
-          "enabled": true,
-          "destOverride": [
-            "http",
-            "tls"
-          ],
-          "routeOnly": false
-        },
-        "tag": "socks"
-      },
-      {
-        "listen": "0.0.0.0",
-        "port": 10809,
-        "protocol": "http",
-        "settings": {
-          "auth": "noauth",
-          "udp": true,
-          "allowTransparent": false
-        },
-        "sniffing": {
-          "enabled": true,
-          "destOverride": [
-            "http",
-            "tls"
-          ],
-          "routeOnly": false
-        },
-        "tag": "http"
-      }
-    ],
-    "outbounds": [
-      {
-        "tag": "proxy",
-        "protocol": "vless",
-        "mux": {
-          "enabled": false,
-          "concurrency": -1,
-          "xudpConcurrency": 8,
-          "xudpProxyUDP443": ""
-        },
-        "settings": {
-          "vnext": [
-            {
-              "address": "fr.song69.fun",
-              "port": 443,
-              "users": [
-                {
-                  "id": "92b79c22-f68b-4713-8b21-52f264cb92f5",
-                  "encryption": "none",
-                  "flow": "",
-                  "level": 8,
-                  "security": "auto"
-                }
-              ]
-            }
-          ]
-        },
-        "streamSettings": {
-          "network": "xhttp",
-          "security": "tls",
-          "tlsSettings": {
-            "serverName": "fr.song69.fun",
-            "fingerprint": "edge",
-            "show": false,
-            "alpn": [
-              "h2",
-              "http/1.1"
-            ]
-          },
-          "xhttpSettings": {
-            "path": "/api/443/download/",
-            "host": "fr.song69.fun",
-            "mode": "auto",
-            "extra": {
-              "mode": "stream-one",
-              "xmux": {
-                "cMaxReuseTimes": 0,
-                "maxConcurrency": "16-32",
-                "hKeepAlivePeriod": 0,
-                "hMaxRequestTimes": "600-900",
-                "hMaxReusableSecs": "1800-3000"
-              },
-              "xPaddingBytes": "100-1000",
-              "xPaddingHeader": "X-Cache",
-              "xPaddingMethod": "tokenish"
-            }
-          }
-        }
-      }
-    ],
-    "dns": {
-      "servers": [
-        "1.1.1.1",
-        "8.8.8.8"
-      ]
-    },
-    "routing": {
-      "domainStrategy": "AsIs",
-      "rules": []
-    },
-    "countryCode": "FR"
-  },
-  {
-    "log": {
-      "access": "",
-      "error": "",
-      "loglevel": "warning"
-    },
-    "remarks": "🇫🇷 Франция №2",
     "inbounds": [
       {
         "listen": "0.0.0.0",
@@ -1358,104 +1529,6 @@
       "rules": []
     },
     "countryCode": "FR"
-  },
-  {
-    "log": {
-      "access": "",
-      "error": "",
-      "loglevel": "warning"
-    },
-    "remarks": "🇸🇪 Швеция №1",
-    "inbounds": [
-      {
-        "listen": "0.0.0.0",
-        "port": 10808,
-        "protocol": "socks",
-        "settings": {
-          "auth": "noauth",
-          "udp": true,
-          "allowTransparent": false
-        },
-        "sniffing": {
-          "enabled": true,
-          "destOverride": [
-            "http",
-            "tls"
-          ],
-          "routeOnly": false
-        },
-        "tag": "socks"
-      },
-      {
-        "listen": "0.0.0.0",
-        "port": 10809,
-        "protocol": "http",
-        "settings": {
-          "auth": "noauth",
-          "udp": true,
-          "allowTransparent": false
-        },
-        "sniffing": {
-          "enabled": true,
-          "destOverride": [
-            "http",
-            "tls"
-          ],
-          "routeOnly": false
-        },
-        "tag": "http"
-      }
-    ],
-    "outbounds": [
-      {
-        "tag": "proxy",
-        "protocol": "vless",
-        "settings": {
-          "vnext": [
-            {
-              "address": "88.216.223.100",
-              "port": 443,
-              "users": [
-                {
-                  "id": "3bb97d46-789b-4229-88f6-9beb222a4137",
-                  "encryption": "none",
-                  "flow": "xtls-rprx-vision",
-                  "level": 8,
-                  "security": "auto"
-                }
-              ]
-            }
-          ]
-        },
-        "streamSettings": {
-          "network": "tcp",
-          "security": "reality",
-          "realitySettings": {
-            "serverName": "smart.bachidze.com",
-            "fingerprint": "firefox",
-            "show": false,
-            "publicKey": "vzRgIP8Mvd9V6krwKxw5EwwzvC4uiaW3wo0Y2ri2_Wc",
-            "shortId": ""
-          },
-          "tcpSettings": {
-            "header": {
-              "type": "none"
-            }
-          }
-        }
-      }
-    ],
-    "dns": {
-      "servers": [
-        "1.1.1.1",
-        "8.8.8.8"
-      ]
-    },
-    "routing": {
-      "domainStrategy": "AsIs",
-      "rules": []
-    },
-    "countryCode": "SE"
   },
   {
     "log": {
