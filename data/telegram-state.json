@@ -4,16 +4,16 @@
   "telegramUrl": "https://p.kfwl.lol/ua=happ/os=android/h=e8bbd86c817be443/https://zolo.watervpn.ru/freesub",
   "actualSourceUrl": "https://p.kfwl.lol/ua=happ/os=android/h=e8bbd86c817be443/https://zolo.watervpn.ru/freesub",
   "finalSourceUrl": "https://p.kfwl.lol/ua=happ/os=android/h=e8bbd86c817be443/https://zolo.watervpn.ru/freesub",
-  "checkedAt": "2026-11-05T08:44:41.810Z",
-  "configCount": 8,
+  "checkedAt": "2026-11-05T16:53:15.401Z",
+  "configCount": 42,
   "independentServers": 1,
-  "bypassRemoved": 12,
-  "geoIPResolved": 6,
-  "geoIPDead": 0,
+  "bypassRemoved": 5,
+  "geoIPResolved": 25,
+  "geoIPDead": 2,
   "stats": {
-    "total": 7,
-    "countries": 5,
-    "normalOutbounds": 6,
+    "total": 41,
+    "countries": 9,
+    "normalOutbounds": 40,
     "skippedBypass": 0
   }
 }
