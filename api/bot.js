@@ -8,7 +8,7 @@
 const SUB_URL =
   "https://sub.maloyvpn.devs.surf/sub/TWF0dmV5X2ZyaWVuZF8yLDE3Nzc0NTIyMzUxW0vSCkGyP";
 // Put your direct image link here (e.g. https://files.catbox.moe/xxxxxx.png)
-const QR_URL = "https://files.catbox.moe/ВСТАВЬТЕ_СВОЮ_ССЫЛКУ.png";
+const QR_URL = "https://imgbox.com/cxltE0RF";
 
 // Maintenance mode is switched in the repo: public/maintenance.json.
 const MAINTENANCE_URL = "https://sub.maloyvpn.devs.surf/maintenance.json";
