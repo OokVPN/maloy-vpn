@@ -1,6 +1,7 @@
 import fs from "node:fs/promises";
 
 import { loadIndependentServers } from "./independent.js";
+import { readMaintenance, loadMaintenanceConfig } from "./maintenance.js";
 
 const raw = await fs.readFile("public/subscription.json", "utf8");
 const subTxt = await fs.readFile("public/sub.txt", "utf8");
@@ -27,6 +28,20 @@ if (!Array.isArray(txtConfigs) || txtConfigs.length === 0) {
 
 if (JSON.stringify(data) !== JSON.stringify(txtData)) {
   throw new Error("/sub.txt differs from /subscription.json.");
+}
+
+// Maintenance mode: the subscription must be exactly the maintenance server.
+const maintenance = await readMaintenance(process.cwd());
+
+if (maintenance.enabled) {
+  const expected = await loadMaintenanceConfig(process.cwd());
+
+  if (configs.length !== 1 || JSON.stringify(configs[0]) !== JSON.stringify(expected)) {
+    throw new Error("Maintenance mode is on, but the subscription is not the maintenance server.");
+  }
+
+  console.log("Maintenance mode: subscription contains only the maintenance server.");
+  process.exit(0);
 }
 
 // Independent servers from servers/*.json must sit at the very end, unchanged.
