@@ -7,6 +7,8 @@ on:
   push:
     paths:
       - "servers/**"
+      - "public/maintenance.json"
+      - "data/maintenance-config.json"
 
 concurrency:
   group: update-vpn-subscription
