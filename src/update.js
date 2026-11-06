@@ -5,6 +5,7 @@ import { getLatestPost } from "./telegram.js";
 import { transformSubscription, removeBypassConfigs } from "./transform.js";
 import { loadIndependentServers } from "./independent.js";
 import { loadSubscription } from "./source.js";
+import { readMaintenance, loadMaintenanceConfig } from "./maintenance.js";
 import {
   lookupGeoIPCountries,
   applyGeoIPCountries
@@ -19,6 +20,28 @@ console.log("================================");
 console.log(" Telegram VPN Sync");
 console.log("================================");
 console.log(`Channel: ${settings.telegram.channel}`);
+
+// Maintenance mode: public/maintenance.json -> { "maintenance": true }.
+// The whole list is replaced by one "technical works" server and nothing
+// else (Telegram, GeoIP, servers/) is touched until the switch is turned off.
+const maintenance = await readMaintenance(root);
+
+if (maintenance.enabled) {
+  const maintenanceConfig = await loadMaintenanceConfig(root);
+  const maintenancePayload = JSON.stringify([maintenanceConfig], null, 2) + "\n";
+
+  await fs.mkdir(path.join(root, "data"), { recursive: true });
+  await fs.mkdir(path.join(root, "public"), { recursive: true });
+
+  await fs.writeFile(path.join(root, "data/subscription.json"), maintenancePayload, "utf8");
+  await fs.writeFile(path.join(root, "public/subscription.json"), maintenancePayload, "utf8");
+  await fs.writeFile(path.join(root, "public/sub.txt"), maintenancePayload, "utf8");
+
+  console.log("");
+  console.log("MAINTENANCE MODE IS ON: the subscription now contains only the maintenance server.");
+  console.log("Set \"maintenance\": false in public/maintenance.json to bring the servers back.");
+  process.exit(0);
+}
 
 const independent = await loadIndependentServers(root);
 
