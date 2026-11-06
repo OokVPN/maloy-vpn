@@ -7,7 +7,14 @@
 
 const SUB_URL =
   "https://sub.maloyvpn.devs.surf/sub/TWF0dmV5X2ZyaWVuZF8yLDE3Nzc0NTIyMzUxW0vSCkGyP";
-const QR_URL = "https://imgbox.com/cxltE0RF";
+// Put your direct image link here (e.g. https://files.catbox.moe/xxxxxx.png)
+const QR_URL = "https://files.catbox.moe/ВСТАВЬТЕ_СВОЮ_ССЫЛКУ.png";
+
+// Maintenance mode is switched in the repo: public/maintenance.json.
+const MAINTENANCE_URL = "https://sub.maloyvpn.devs.surf/maintenance.json";
+
+// These Telegram users always get the normal reply, even during maintenance.
+const IMMUNE_USER_IDS = new Set([5188800998]);
 
 const EXPIRE = { year: 2067, month: 1, day: 1 };
 const EXPIRE_TEXT = "01.01.2067";
@@ -75,6 +82,36 @@ function isStartCommand(message) {
   return /^\/start(@\w+)?(\s|$)/i.test(text.trim());
 }
 
+async function isMaintenance() {
+  try {
+    const response = await fetch(`${MAINTENANCE_URL}?t=${Date.now()}`, {
+      cache: "no-store",
+      signal: AbortSignal.timeout(3000)
+    });
+
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+    const data = await response.json();
+    return data?.maintenance === true;
+  } catch (error) {
+    // If the switch can't be read, answer normally rather than blocking everyone.
+    console.error(`maintenance.json: ${error.message}`);
+    return false;
+  }
+}
+
+async function handleMaintenance(chatId) {
+  await telegram("sendMessage", {
+    chat_id: chatId,
+    text: [
+      "<b>🛠 Ведутся технические работы</b>",
+      "",
+      "Подписка временно недоступна. Мы уже работаем над этим, загляните сюда чуть позже."
+    ].join("\n"),
+    parse_mode: "HTML"
+  });
+}
+
 async function handleStart(chatId) {
   await telegram("sendMessage", {
     chat_id: chatId,
@@ -111,7 +148,13 @@ export default async function handler(req, res) {
 
   try {
     if (message?.chat?.id && isStartCommand(message)) {
-      await handleStart(message.chat.id);
+      const immune = IMMUNE_USER_IDS.has(message.from?.id);
+
+      if (!immune && (await isMaintenance())) {
+        await handleMaintenance(message.chat.id);
+      } else {
+        await handleStart(message.chat.id);
+      }
     }
   } catch (error) {
     // Answer 200 anyway: a non-2xx would make Telegram resend the update
